@@ -11,19 +11,50 @@ body {
 }
 
 nav {
-    height: 10%;
+    height: 13%;
     width: 100%;
-
+    display: flex;
+    
     background-color: bisque;
 }
 
-.header {
+.header, .logo {
     display: flex;
     align-items: center;
     height: 100%;
+    margin-left: 5px;
+}
+
+.logo {
+    margin-left: 20px;
 }
 
 nav h1 {
     font-size: 3em;
     margin: 0;
+}
+
+main {
+    height: 100%;
+    background-color: rgba(255, 228, 196, 0.171);
+}
+
+footer {
+    background-color: bisque;
+    height: 5%;
+}
+
+.footnotes {
+    font-size: 1.25em;
+    font-weight: 700;
+
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.footnotes a {
+    text-decoration: none;
 }
