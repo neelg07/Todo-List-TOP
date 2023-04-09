@@ -1,0 +1,29 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+}
+
+nav {
+    height: 10%;
+    width: 100%;
+
+    background-color: bisque;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+nav h1 {
+    font-size: 3em;
+    margin: 0;
+}
