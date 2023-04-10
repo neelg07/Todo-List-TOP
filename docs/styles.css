@@ -77,24 +77,43 @@ footer {
     flex-flow: column;
 }
 
-.misc {
+.misc, 
+.projects {
     display: flex;
     flex-flow: column;
     gap: 5px;
     padding: 20px;
 }
 
-.misc div {
+.misc div,
+.projects div {
     display: flex;
     gap: 8px;
     align-items: flex-end;
-    padding: 5px 10px;
+    padding: 7px 10px;
 }
 
 .misc div:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
     border-radius: 5px;
+}
+
+#add-proj {
+    transition: transform 0.3s ease-in-out;
+}
+
+.projects div:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.projects div:active {
+    transform: scale(1);
+}
+
+.projects div:hover > #add-proj {
+    transform: rotate(360deg);
 }
 
 .misc div:active {
@@ -105,17 +124,26 @@ footer {
     width: 25px;
 }
 
-.misc h2 {
+.misc h2,
+.projects h2 {
     font-size: 1.20em;
     font-family: Helvetica, Verdana, sans-serif;
     margin: 0;
 }
-
-/** Project Section */
 
 .project-title h2 {
     font-size: 30px;
     font-family: Helvetica, Verdana, sans-serif;
     color:rgba(0, 0, 0, 0.808);
     margin: 0;
+    padding: 0 15px;
+}
+
+.projects {
+    padding-top: 10px;
+}
+
+.projects img {
+    width: 20px;
+    align-self: flex-start;
 }
