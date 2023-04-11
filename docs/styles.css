@@ -1,4 +1,8 @@
-/** Template */ 
+/** Template */
+html {
+    --selected-color: rgba(128, 128, 128, 0.774);
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -91,12 +95,13 @@ footer {
     gap: 8px;
     align-items: flex-end;
     padding: 7px 10px;
+    border-radius: 5px;
 }
 
-.misc div:hover {
+.misc div:hover:not(.selected),
+.projects div:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
-    border-radius: 5px;
 }
 
 #add-proj {
@@ -116,8 +121,14 @@ footer {
     transform: rotate(360deg);
 }
 
+.misc div:active,
+.selected {
+    background-color: var(--selected-color);
+    cursor: pointer;
+}
+
 .misc div:active {
-    background-color: rgba(128, 128, 128, 0.774);
+    transform: scale(0.9);
 }
 
 .misc img {
