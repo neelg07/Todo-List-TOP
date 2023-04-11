@@ -5,13 +5,14 @@
 */
 
 class Task {
-    constructor(title, detail, date) {
+    constructor(title, detail, date, project) {
         this.title = title;
         this.detail = detail;
         this.date = date;
         this.important = false;
+        this.project = project;
     }
-
+    // Getters and Setters
     set title(title) {              // Title
         this._title = title;
     }
@@ -31,5 +32,12 @@ class Task {
     }
     get date() {
         return this._date;
+    }
+
+    set project(project) {          // Project 
+        this._project = project;
+    }
+    get project() {
+        return this._project;
     }
 }
