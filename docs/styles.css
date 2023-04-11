@@ -147,3 +147,7 @@ footer {
     width: 20px;
     align-self: flex-start;
 }
+
+.projects h2 {
+    font-size: 1em;
+}
