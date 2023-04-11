@@ -40,4 +40,4 @@ class Task {
     get project() {
         return this._project;
     }
-}
+};
