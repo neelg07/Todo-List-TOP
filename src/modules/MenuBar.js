@@ -10,24 +10,30 @@ const week = document.querySelector('.week');
 const important = document.querySelector('.important');
 const notes = document.querySelector('.notes');
 
-class MenuBar {
+export default class MenuBar {
+    
     static miscellaneous = [allTasks, today, week, important, notes];
 
     static addOnClicks() {
-        for (let item of MenuBar.miscellaneous) {
-            item.addEventListener('click', () => {
-                item.classList.add('selected');
-                MenuBar.removeOtherSelected(item);
+        for (let section of MenuBar.miscellaneous) {
+            section.addEventListener('click', () => {
+                section.classList.add('selected');
+                MenuBar.removeOtherSelected(section);
+                MenuBar.renderPage(section);
             });
         }
     }
 
-    static removeOtherSelected(item) {
+    static removeOtherSelected(section) {
         for (let i of MenuBar.miscellaneous) {
-            if (i === item) {
+            if (i === section) {
                 continue;
             }
             i.classList.remove('selected');
         }
     }
-}
+
+    static renderPage(section) {
+        console.log('rendering: ', section); // implement render logic later
+    }
+};
