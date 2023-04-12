@@ -1,7 +1,9 @@
+import Project from "./projects";
 /**Menu Bar Module
  * add event listeners for each menu item
  * holds list of projects to display under projects
  * calls DOM manipulation module to render each page
+ * calls Project module to add projects to sidebar
  */
 
 const allTasks = document.querySelector('.all-tasks');
@@ -19,6 +21,7 @@ const cancelProjectBtn = document.getElementById('cancel-project');
 function switchProjectMode() {
     addProjectDiv.classList.toggle('hidden');
     projectForm.classList.toggle('hidden');
+    projectTitleInput.value = '';
     projectTitleInput.focus();
 }
 
@@ -30,14 +33,17 @@ export default class MenuBar {
     static addOnClicks() {
         for (let section of MenuBar.miscellaneous) {    // misc section onClick events
             section.addEventListener('click', () => {
-                section.classList.add('selected');
+                section.classList.add('selected');      // add and remove class for gray bar around active section
                 MenuBar.removeOtherSelected(section);
-                MenuBar.renderPage(section);
+                MenuBar.renderPage(section);            // dynamically render the section
             });
         }
         addProjectDiv.addEventListener('click', switchProjectMode);      // Add Project section onClick events
         cancelProjectBtn.addEventListener('click', switchProjectMode);
-        projectForm.addEventListener('submit', (e) => {
+
+        projectForm.addEventListener('submit', (e) => {                 // submitting project form event
+            // TODO: add func for constraint validation api logic
+            MenuBar.createProject();
             e.preventDefault();
             switchProjectMode();
         });
@@ -50,6 +56,13 @@ export default class MenuBar {
             }
             i.classList.remove('selected');
         }
+    }
+
+    static projects = [];
+
+    static createProject() {
+        let projectTitle = projectTitleInput.value;
+        MenuBar.projects.push(new Project(projectTitle));
     }
 
     static renderPage(section) {
