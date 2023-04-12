@@ -22,14 +22,6 @@ function switchProjectMode() {
     projectTitleInput.focus();
 }
 
-function submitProjectForm(event) {
-    // TODO: logic to check constraint validation api
-    // if input is valid, continue w/ form submission
-
-    event.preventDefault();
-    switchProjectMode();
-}
-
 // Menu Bar Class 
 export default class MenuBar {
     
