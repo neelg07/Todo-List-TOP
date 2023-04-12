@@ -4,7 +4,7 @@
  * holds all tasks in an array
  */
 
-class Project {
+export default class Project {
     constructor(title) {
         this.title = title;
         this.tasks = [];
