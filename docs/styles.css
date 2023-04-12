@@ -99,7 +99,7 @@ footer {
 }
 
 .misc div:hover:not(.selected),
-.projects div:hover {
+.projects > div:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
 }
@@ -108,7 +108,7 @@ footer {
     transition: transform 0.3s ease-in-out;
 }
 
-.projects div:hover {
+.projects > div:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -161,4 +161,51 @@ footer {
 
 .projects h2 {
     font-size: 1em;
+}
+
+/** Add Project Mini-Form */
+.project-form {
+    display: flex;
+    flex-flow: column;
+}
+
+.project-form input {
+    height: 2.5em;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 8px;
+    margin-left: 1px;
+    width: 24ch;
+    font-family: sans-serif
+}
+
+.project-btns button {
+    width: 75px;
+    height: 2em;
+    font-size: 13px;
+    font-weight: 750;
+    border-radius: 5px;
+}
+
+.project-btns button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.project-btns button:active {
+    transform: scale(1);
+}
+
+#cancel-project {
+    background-color: rgba(255, 0, 0, 0.685);
+    border-color: rgba(255, 0, 0, 0.685);
+}
+
+.hidden {
+    display: none !important;
+}
+
+#add-project-btn {
+    background-color: rgb(126, 201, 13);
+    border-color: rgb(126, 201, 13);
 }
