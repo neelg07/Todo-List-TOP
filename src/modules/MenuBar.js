@@ -6,6 +6,7 @@ import Project from "./projects";
  * calls Project module to add projects to sidebar
  */
 
+// Misc section nodes for use in MenuBar class
 const allTasks = document.querySelector('.all-tasks');
 const today = document.querySelector('.today');
 const week = document.querySelector('.week');
@@ -33,15 +34,15 @@ export default class MenuBar {
     static addOnClicks() {
         for (let section of MenuBar.miscellaneous) {    // misc section onClick events
             section.addEventListener('click', () => {
-                section.classList.add('selected');      // add and remove class for gray bar around active section
+                section.classList.add('selected');      // add and remove class that highlights gray around active section
                 MenuBar.removeOtherSelected(section);
                 MenuBar.renderPage(section);            // dynamically render the section
             });
         }
-        addProjectDiv.addEventListener('click', switchProjectMode);      // Add Project section onClick events
+        addProjectDiv.addEventListener('click', switchProjectMode);      // "Add Project" div onClick events
         cancelProjectBtn.addEventListener('click', switchProjectMode);
 
-        projectForm.addEventListener('submit', (e) => {                 // submitting project form event
+        projectForm.addEventListener('submit', (e) => {             // add project form onSubmit event
             // TODO: add func for constraint validation api logic
             MenuBar.createProject();
             e.preventDefault();
@@ -50,19 +51,22 @@ export default class MenuBar {
     }
 
     static removeOtherSelected(section) {
-        for (let i of MenuBar.miscellaneous) {
-            if (i === section) {
-                continue;
+        for (let i of MenuBar.miscellaneous) {      // remove selected class from other
+            if (i !== section) {                    // sections in misc
+                i.classList.remove('selected');;
             }
-            i.classList.remove('selected');
         }
     }
 
     static projects = [];
 
-    static createProject() {
+    static createProject() {                            // Adds project to portfolio
         let projectTitle = projectTitleInput.value;
         MenuBar.projects.push(new Project(projectTitle));
+    }
+
+    static renderProjectSection() {                    // renders new project section with updated portfolio
+        
     }
 
     static renderPage(section) {
