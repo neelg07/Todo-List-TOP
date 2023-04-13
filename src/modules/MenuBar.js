@@ -1,10 +1,12 @@
 import Project from "./projects";
 /**Menu Bar Module
  * add event listeners for each menu item
- * holds list of projects to display under projects
- * calls DOM manipulation module to render each page
- * calls Project module to add projects to sidebar
+ * calls the Project module to instantiate projects
+ * holds list of projects to display under projects section 
+ * dynamically renders the project section DOM every project addition/deletion
+ * calls DOM manipulation module to render each page selected
  */
+
 
 // Misc section nodes for use in MenuBar class
 const allTasks = document.querySelector('.all-tasks');
@@ -25,6 +27,38 @@ function switchProjectMode() {
     projectTitleInput.value = '';
     projectTitleInput.focus();
 }
+
+const projects = document.querySelector('.my-projects');
+
+// Creates DOM node for a project object passed in
+function createProjectDiv(project) {
+    const projectNode = document.createElement('div');
+    projectNode.classList.add('project-node');
+
+    const projImg = document.createElement('img');
+    projImg.src = './images/menu.png';
+    projImg.alt = 'project-menu-icon';
+    projImg.setAttribute('id', 'proj-img');
+
+    const h2 = document.createElement('h2');
+    h2.append(`${project.title}`)
+
+    const button = document.createElement('button');
+    button.setAttribute('type', 'button');
+
+    const buttonImg = document.createElement('img');
+    buttonImg.src = './images/dots.png';
+    buttonImg.alt = 'more-settings';
+    buttonImg.setAttribute('id', 'project-settings');
+    
+    button.appendChild(buttonImg);
+
+    projectNode.appendChild(projImg);
+    projectNode.appendChild(h2);
+    projectNode.appendChild(button);
+    return projectNode;
+}
+
 
 // Menu Bar Class 
 export default class MenuBar {
@@ -61,12 +95,17 @@ export default class MenuBar {
     static projects = [];
 
     static createProject() {                            // Adds project to portfolio
-        let projectTitle = projectTitleInput.value;
-        MenuBar.projects.push(new Project(projectTitle));
+        const projectTitle = projectTitleInput.value;
+        const project = new Project(projectTitle);
+        MenuBar.projects.push(project);
+        MenuBar.renderProjectSection();
     }
 
-    static renderProjectSection() {                    // renders new project section with updated portfolio
-        
+    static renderProjectSection() {                    // renders new project section w/ updated portfolio
+        projects.innerHTML = '';
+        for (let project of MenuBar.projects) {
+            projects.appendChild(createProjectDiv(project));
+        }
     }
 
     static renderPage(section) {
