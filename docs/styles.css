@@ -90,7 +90,9 @@ footer {
 }
 
 .misc div,
-.projects div {
+.add-projects,
+.project-btns,
+.project-node {
     display: flex;
     gap: 8px;
     align-items: flex-end;
@@ -99,7 +101,8 @@ footer {
 }
 
 .misc div:hover:not(.selected),
-.projects > div:hover {
+.add-projects:hover,
+.project-node:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
 }
@@ -110,6 +113,9 @@ footer {
 
 .projects > div:hover {
     cursor: pointer;
+}
+
+.add-projects:hover {
     transform: scale(1.1);
 }
 
@@ -167,6 +173,7 @@ footer {
 .project-form {
     display: flex;
     flex-flow: column;
+    margin-left: 10px;
 }
 
 .project-form input {
@@ -187,7 +194,8 @@ footer {
     border-radius: 5px;
 }
 
-.project-btns button:hover {
+#cancel-project:hover,
+#add-project-btn:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -208,4 +216,19 @@ footer {
 #add-project-btn {
     background-color: rgb(126, 201, 13);
     border-color: rgb(126, 201, 13);
+}
+
+/** My Projects Section */
+.my-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+.project-node {
+    display: flex;
+    gap: 10px;
+
 }
