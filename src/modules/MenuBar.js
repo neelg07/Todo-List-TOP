@@ -56,9 +56,23 @@ function createProjectDiv(project) {
     projectNode.appendChild(projImg);
     projectNode.appendChild(h2);
     projectNode.appendChild(button);
+
+    addProjectListener(projectNode);
     return projectNode;
 }
 
+function addProjectListener(project) {
+    project.addEventListener('click', () => {       // add onClick event listener to the project node created
+        project.classList.add('selected');
+        MenuBar.renderPage(project);
+
+        document.querySelectorAll('.project-node').forEach(x => {   
+            if (x !== project) {
+               x.classList.remove('selected');
+            }
+        })
+    })
+}
 
 // Menu Bar Class 
 export default class MenuBar {
