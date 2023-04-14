@@ -45,6 +45,7 @@ function createProjectDiv(project) {
 
     const button = document.createElement('button');
     button.setAttribute('type', 'button');
+    button.setAttribute('id', 'proj-settings')
 
     const buttonImg = document.createElement('img');
     buttonImg.src = './images/dots.png';
@@ -66,11 +67,12 @@ function addProjectListener(project) {
         project.classList.add('selected');
         MenuBar.renderPage(project);
 
-        document.querySelectorAll('.project-node').forEach(x => {   
+        document.querySelectorAll('.project-node').forEach(x => {   // remove selected class from other projects
             if (x !== project) {
                x.classList.remove('selected');
             }
         })
+        MenuBar.removeOtherSelected(project);       // remove selected class from misc 
     })
 }
 
@@ -100,11 +102,17 @@ export default class MenuBar {
 
     static removeOtherSelected(section) {
         for (let i of MenuBar.miscellaneous) {      // remove selected class from other
-            if (i !== section) {                    // sections in misc
+            if (i !== section) {                    // sections in misc and projects
                 i.classList.remove('selected');;
             }
         }
+        document.querySelectorAll('.project-node').forEach(x => {
+            if (x !== section) {
+                x.classList.remove('selected');
+            }
+        })
     }
+
 
     static projects = [];
 
