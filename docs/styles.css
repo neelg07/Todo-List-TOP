@@ -45,7 +45,7 @@ nav h2 {
 }
 
 main {
-    height: 100%;
+    height: calc(100% - 135px);
     background-color: rgba(255, 228, 196, 0.171);
     display: flex;
 }
@@ -74,6 +74,7 @@ footer {
 .menu-bar {
     width: clamp(250px, 15%, 300px);
     height: 100%;
+
     background-color: rgba(128, 128, 128, 0.322);
     color:rgba(0, 0, 0, 0.63);
 
@@ -158,6 +159,7 @@ footer {
 
 .projects {
     padding-top: 10px;
+    overflow-y: scroll;
 }
 
 .projects img {
