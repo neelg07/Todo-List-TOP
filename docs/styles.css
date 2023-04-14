@@ -234,6 +234,10 @@ footer {
     position: relative;
 }
 
+.project-node:active {
+    transform: scale(0.9);
+}
+
 #project-settings,
 .project-node button {
     background: none;
@@ -251,9 +255,17 @@ footer {
 
 .project-node button:hover {
     cursor: pointer;
-    transform: scale(1.25);
+    transform: scale(1.3);
 }
 
 .project-node button:active {
     transform: scale(1) !important;
+}
+
+:not(.selected):not(.project-node:hover) > button {
+    display: none;
+}
+
+.selected:hover {
+    background-color: var(--selected-color);
 }
