@@ -159,7 +159,7 @@ footer {
 
 .projects {
     padding-top: 10px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .projects img {
