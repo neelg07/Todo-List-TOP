@@ -234,10 +234,6 @@ footer {
     position: relative;
 }
 
-.project-node:active {
-    transform: scale(0.9);
-}
-
 #project-settings,
 .project-node button {
     background: none;
@@ -262,7 +258,7 @@ footer {
     transform: scale(1) !important;
 }
 
-:not(.selected):not(.project-node:hover) > button {
+:not(.selected):not(.project-node:hover) > #proj-settings {
     display: none;
 }
 
