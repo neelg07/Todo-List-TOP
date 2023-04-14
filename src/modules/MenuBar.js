@@ -59,6 +59,7 @@ function createProjectDiv(project) {
     projectNode.appendChild(button);
 
     addProjectListener(projectNode);
+    projectNode.click();
     return projectNode;
 }
 
@@ -72,7 +73,7 @@ function addProjectListener(project) {
                x.classList.remove('selected');
             }
         })
-        MenuBar.removeOtherSelected(project);       // remove selected class from misc 
+        MenuBar.removeOtherSelected(project);       // remove selected class from misc
     })
 }
 
