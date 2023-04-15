@@ -34,6 +34,7 @@ const projects = document.querySelector('.my-projects');
 function createProjectDiv(project) {
     const projectNode = document.createElement('div');
     projectNode.classList.add('project-node');
+    projectNode.setAttribute('id', project.title);
 
     const projImg = document.createElement('img');
     projImg.src = './images/menu.png';
