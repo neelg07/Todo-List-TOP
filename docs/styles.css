@@ -47,7 +47,8 @@ nav h2 {
 main {
     height: calc(100% - 135px);
     background-color: rgba(255, 228, 196, 0.171);
-    display: flex;
+    display: grid;
+    grid-template: 100% / 250px 1fr;
 }
 
 footer {
@@ -72,7 +73,7 @@ footer {
 
 /** Menu Bar */ 
 .menu-bar {
-    width: clamp(250px, 15%, 300px);
+    width: 250px;
     height: 100%;
 
     background-color: rgba(128, 128, 128, 0.322);
@@ -103,7 +104,8 @@ footer {
 
 .misc div:hover:not(.selected),
 .add-projects:hover,
-.project-node:hover {
+.project-node:hover,
+.add-task:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
 }
@@ -129,12 +131,14 @@ footer {
 }
 
 .misc div:active,
-.selected {
+.selected,
+.add-task:active {
     background-color: var(--selected-color);
     cursor: pointer;
 }
 
-.misc div:active {
+.misc div:active,
+.add-task:active {
     transform: scale(0.9);
 }
 
@@ -266,4 +270,58 @@ footer {
 
 .selected:hover {
     background-color: var(--selected-color);
+}
+
+/** Main Div Section */
+.add-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 60%;
+    height: 45px;
+    margin-top: 0px;
+}
+
+.main {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.page-title {
+    align-self: start;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.page-title h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.add-task {
+    border-radius: 5px;
+}
+
+.add-task-form {
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+    border: 2px solid black;
+    padding: 20px 30px;
+    border-radius: 5px;
+    box-shadow: -5px 5px 3px 1px gray;
+}
+
+.add-task-form input {
+    height: 2em;
+    box-sizing: border-box;
+    padding-left: 8px;
+}
+
+textarea {
+    resize: none;
+    padding: 8px;
 }
