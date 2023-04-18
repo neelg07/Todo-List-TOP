@@ -1,6 +1,7 @@
 import Project from "./projects";
 /**Menu Bar Module
- * add event listeners for each menu item
+ * contains everything that has to do with the side bar
+ * adds event listeners for each menu item
  * calls the Project module to instantiate projects
  * holds list of projects to display under projects section 
  * dynamically renders the project section DOM every project addition/deletion
