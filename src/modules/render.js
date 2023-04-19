@@ -62,7 +62,7 @@ function addTaskButton() {
 // Add Task Form DOM Creation
 function createTaskForm() {
     const form = document.createElement('form');
-    form.classList.add('add-task-form');
+    form.classList.add('add-task-form', 'hidden');
 
     const nameLabel = document.createElement('label');
     nameLabel.setAttribute('for', 'taskname');

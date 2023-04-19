@@ -5,6 +5,8 @@ import MenuBar from "./modules/MenuBar"
 
 // On first page load
 // Add event listeners to Menu items
+// Render 'All Tasks' Page
 window.addEventListener('load', () => {
     MenuBar.addOnClicks();
+    MenuBar.renderPage(MenuBar.miscellaneous[0]);
 });
