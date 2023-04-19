@@ -1,8 +1,14 @@
+import MenuBar from "./MenuBar";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
  */
 
+const allTasks = document.querySelector('.all-tasks');
+const today = document.querySelector('.today');
+const week = document.querySelector('.week');
+const important = document.querySelector('.important');
+const notes = document.querySelector('.notes');
 
 // Page Title DOM Creation
 function createPageTitle(page) {
@@ -21,7 +27,7 @@ function createPageTitle(page) {
             pageTitle.append("This Week's Tasks");
             break;
         case important:
-            pageTitle.append("Starred");
+            pageTitle.append("Important!");
             break;
         case notes:
             pageTitle.append('My Notes');
@@ -55,12 +61,70 @@ function addTaskButton() {
 
 // Add Task Form DOM Creation
 function createTaskForm() {
+    const form = document.createElement('form');
+    form.classList.add('add-task-form');
 
+    const nameLabel = document.createElement('label');
+    nameLabel.setAttribute('for', 'taskname');
+    const requireSpan = document.createElement('span');
+    requireSpan.setAttribute('aria-label', 'required');
+    requireSpan.append('*');
+    nameLabel.append(`Task Title: ${requireSpan}`);
+
+    const nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('name', 'task');
+    nameInput.setAttribute('id', 'taskname');
+    nameInput.setAttribute('placeholder', 'Task');
+
+    const details = document.createElement('textarea');
+    details.setAttribute('name', 'details');
+    details.setAttribute('id', 'details');
+    details.setAttribute('cols', '20');
+    details.setAttribute('rows', '5');
+    details.setAttribute('placeholder', 'Optional Details');
+
+    const dateLabel = document.createElement('label');
+    dateLabel.setAttribute('for', 'duedate');
+    dateLabel.append('Due Date (Optional): ');
+
+    const dateInput = document.createElement('input');
+    dateInput.setAttribute('type', 'date');
+    dateInput.setAttribute('name', 'date');
+    dateInput.setAttribute('id', 'duedate');
+
+    const projectLabel = document.createElement('label');
+    projectLabel.setAttribute('for', 'project');
+    projectLabel.append('Choose a project (Optional): ');
+
+    const projectSelect = document.createElement('select');
+    projectSelect.setAttribute('name', 'project');
+    projectSelect.setAttribute('id', 'project');
+
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(details);
+    form.appendChild(dateLabel);
+    form.appendChild(dateInput);
+    form.appendChild(projectLabel);
+    form.appendChild(projectSelect);
+    return form;
 }
 
-class RenderPage {
+const main = document.querySelector('.main');
 
-    static render(page) { 
-        // TODO
+export default class RenderPage {
+
+    static render(page) {
+        RenderPage.resetDOM();
+        main.appendChild(createPageTitle(page));               // add specific page title
+        if (page === allTasks) {
+            main.appendChild(addTaskButton());              // if All Tasks page, add the add-task btn and task form
+            main.appendChild(createTaskForm());
+        }
+    }
+
+    static resetDOM() {
+        main.innerHTML = '';
     }
 }
