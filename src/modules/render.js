@@ -27,13 +27,13 @@ function createPageTitle(page) {
             pageTitle.append("This Week's Tasks");
             break;
         case important:
-            pageTitle.append("Important!");
+            pageTitle.append("Important Tasks");
             break;
         case notes:
             pageTitle.append('My Notes');
             break;
         default:
-            pageTitle.append(`${page.title}`);      // Project title if project page is selected
+            pageTitle.append(page.id);        // append Project title if a project page is selected
     }
     pageTitleDiv.appendChild(pageTitle);
     return pageTitleDiv;
