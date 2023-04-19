@@ -1,4 +1,5 @@
 import Project from "./projects";
+import RenderPage from "./render";
 /**Menu Bar Module
  * contains everything that has to do with the side bar
  * adds event listeners for each menu item
@@ -134,6 +135,6 @@ export default class MenuBar {
     }
 
     static renderPage(section) {
-        console.log('rendering: ', section); // implement render page logic later
+        RenderPage.render(section);
     }
 };
