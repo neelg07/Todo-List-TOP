@@ -104,8 +104,7 @@ footer {
 
 .misc div:hover:not(.selected),
 .add-projects:hover,
-.project-node:hover,
-.add-task:hover {
+.project-node:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.432);
 }
@@ -131,15 +130,14 @@ footer {
 }
 
 .misc div:active,
-.selected,
-.add-task:active {
+.selected {
     background-color: var(--selected-color);
     cursor: pointer;
 }
 
 .misc div:active,
 .add-task:active {
-    transform: scale(0.9);
+    transform: scale(1);
 }
 
 .misc img {
@@ -306,6 +304,16 @@ footer {
     border-radius: 5px;
 }
 
+.add-task:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.add-task:active {
+    cursor: pointer;
+    transform: scale(1);
+}
+
 .add-task-form {
     display: flex;
     flex-flow: column;
@@ -314,6 +322,9 @@ footer {
     padding: 20px 30px;
     border-radius: 5px;
     box-shadow: -5px 5px 3px 1px gray;
+
+    position: absolute;
+    top: 150px;
 }
 
 .add-task-form input {
