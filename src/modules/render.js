@@ -40,7 +40,7 @@ function createPageTitle(page) {
 }
 
 // Add Task Div/Button DOM Creation
-function addTaskButton() {
+function addTaskButton(page) {
     const addTaskDiv = document.createElement('div');
     addTaskDiv.classList.add('add-task');
 
@@ -52,8 +52,12 @@ function addTaskButton() {
     plusImg.setAttribute('height', '25');
 
     const addTaskH2 = document.createElement('h2');
-    addTaskH2.append('Add Task');
-
+    if (page === allTasks) {
+        addTaskH2.append('Add Task');
+    } else if (page === notes) {
+        addTaskH2.append('Add Note');
+    }
+    
     addTaskDiv.appendChild(plusImg);
     addTaskDiv.appendChild(addTaskH2);
     return addTaskDiv;
@@ -119,8 +123,10 @@ export default class RenderPage {
         RenderPage.resetDOM();
         main.appendChild(createPageTitle(page));               // add specific page title
         if (page === allTasks) {
-            main.appendChild(addTaskButton());              // if All Tasks page, add the add-task btn and task form
+            main.appendChild(addTaskButton(allTasks));              // if All Tasks page, add the add-task btn and task form
             main.appendChild(createTaskForm());
+        } else if (page === notes) {
+            main.appendChild(addTaskButton(notes));
         }
     }
 
