@@ -60,7 +60,26 @@ function addTaskButton(page) {
     
     addTaskDiv.appendChild(plusImg);
     addTaskDiv.appendChild(addTaskH2);
+    addTaskOnClick(addTaskDiv, page);
     return addTaskDiv;
+}
+
+// Causes form to popup when add-task/note div clicked on 
+// Different for Task and Notes pages
+// Async functions used to allow DOM to load the form before adding event listener for it
+function addTaskOnClick(div, page) {
+    div.addEventListener('click', () => {
+        if (page === allTasks) {
+            setTimeout( () => {
+                const form = document.getElementsByClassName('add-task-form');
+                form[0].classList.remove('hidden');
+                div.classList.add('hidden');
+                document.getElementById('taskname').focus();
+            }, 1);
+        } else {
+            console.log('form = querySelect(noteform)');    // TODO
+        }
+    })
 }
 
 // Add Task Form DOM Creation
@@ -123,8 +142,8 @@ export default class RenderPage {
         RenderPage.resetDOM();
         main.appendChild(createPageTitle(page));               // add specific page title
         if (page === allTasks) {
-            main.appendChild(addTaskButton(allTasks));              // if All Tasks page, add the add-task btn and task form
             main.appendChild(createTaskForm());
+            main.appendChild(addTaskButton(allTasks));              // if All Tasks page, add the add-task btn and task form
         } else if (page === notes) {
             main.appendChild(addTaskButton(notes));
         }
