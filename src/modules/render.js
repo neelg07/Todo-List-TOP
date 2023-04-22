@@ -80,6 +80,7 @@ function addTaskOnClick(btn, page) {
     })
     // Clicking outside of form re-hides the form and unhides the add button
     document.addEventListener('click', () => {
+        resetForm(page);           // resets inputs when form is closed
         form.classList.add('hidden');
         btn.classList.remove('hidden');
     })
@@ -87,6 +88,17 @@ function addTaskOnClick(btn, page) {
         event.stopPropagation();
     })
 }
+
+function resetForm(page) {
+    if (page === allTasks) {
+        document.getElementById('taskname').value = '';
+        document.getElementById('details').value = '';
+        document.getElementById('duedate').value = null;
+    } else {
+        document.getElementById('note-title').value = '';
+        document.getElementById('note-details').value = '';
+    }
+} 
 
 // Add Task Form DOM Creation
 function createTaskForm() {
