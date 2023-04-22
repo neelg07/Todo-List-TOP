@@ -60,26 +60,14 @@ function addTaskButton(page) {
     
     addTaskDiv.appendChild(plusImg);
     addTaskDiv.appendChild(addTaskH2);
-    addTaskOnClick(addTaskDiv, page);
     return addTaskDiv;
 }
 
 // Causes form to popup when add-task/note div clicked on 
 // Different for Task and Notes pages
 // Async functions used to allow DOM to load the form before adding event listener for it
-function addTaskOnClick(div, page) {
-    div.addEventListener('click', () => {
-        if (page === allTasks) {
-            setTimeout( () => {
-                const form = document.getElementsByClassName('add-task-form');
-                form[0].classList.remove('hidden');
-                div.classList.add('hidden');
-                document.getElementById('taskname').focus();
-            }, 1);
-        } else {
-            console.log('form = querySelect(noteform)');    // TODO
-        }
-    })
+function addTaskOnClick(page) {
+    console.log('form-render', page);
 }
 
 // Add Task Form DOM Creation
@@ -89,10 +77,7 @@ function createTaskForm() {
 
     const nameLabel = document.createElement('label');
     nameLabel.setAttribute('for', 'taskname');
-    const requireSpan = document.createElement('span');
-    requireSpan.setAttribute('aria-label', 'required');
-    requireSpan.append('*');
-    nameLabel.append(`Task Title: ${requireSpan}`);
+    nameLabel.append(`Task Title* : `);
 
     const nameInput = document.createElement('input');
     nameInput.setAttribute('type', 'text');
@@ -134,18 +119,44 @@ function createTaskForm() {
     return form;
 }
 
+// Create Note Form
+function createNoteForm() {
+    const form = document.createElement('form');
+    form.classList.add('add-note-form');
+
+    const title = document.createElement('input');
+    title.setAttribute('type', 'text');
+    title.setAttribute('placeholder', 'Note');
+    title.setAttribute('name', 'note-title');
+    title.setAttribute('id', 'note-title');
+
+    const details = document.createElement('textarea');
+    details.setAttribute('name', 'note-details');
+    details.setAttribute('id', 'note-details');
+    details.setAttribute('cols', '20');
+    details.setAttribute('rows', '5');
+    details.setAttribute('placeholder', 'Details (Optional)')
+
+    form.appendChild(title);
+    form.appendChild(details);
+    return form;
+}
+
 const main = document.querySelector('.main');
 
 export default class RenderPage {
 
     static render(page) {
         RenderPage.resetDOM();
-        main.appendChild(createPageTitle(page));               // add specific page title
+        main.appendChild(createPageTitle(page));               // add page title/header
         if (page === allTasks) {
-            main.appendChild(createTaskForm());
-            main.appendChild(addTaskButton(allTasks));              // if All Tasks page, add the add-task btn and task form
-        } else if (page === notes) {
-            main.appendChild(addTaskButton(notes));
+            main.appendChild(createTaskForm());              // if All Tasks page create and append task form
+        } else if (page === notes) {                        // else if Notes page, create and append notes form
+            main.appendChild(createNoteForm());       
+        }
+        if (page === allTasks || page === notes) {          // Then add the "add task/note" button and eventlistener 
+            main.appendChild(addTaskButton(page));
+            addTaskOnClick(page);
         }
     }
 
