@@ -65,15 +65,27 @@ function addTaskButton(page) {
 
 // Causes form to popup when add-task/note div clicked on 
 // Different for Task and Notes pages
-// Async functions used to allow DOM to load the form before adding event listener for it
-function addTaskOnClick(page) {
-    console.log('form-render', page);
+// Async setTimeouts used to allow DOM to load the form before adding event listener for it
+function addTaskOnClick(btn, page) {
+    btn.addEventListener('click', () => {
+        setTimeout(() => {
+            const form = document.getElementsByClassName('add-form')[0];
+            form.classList.remove('hidden');
+            btn.classList.add('hidden');
+            (page === allTasks) ? document.getElementById('taskname').focus() : document.getElementById('note-title').focus();
+        }, 1)
+    })
+    // Clicking outside of form re-hides the form and unhides the add button
+    document.addEventListener('click', () => {
+        form.classList.add('hidden');
+        btn.classList.remove('hidden');
+    })
 }
 
 // Add Task Form DOM Creation
 function createTaskForm() {
     const form = document.createElement('form');
-    form.classList.add('add-task-form', 'hidden');
+    form.classList.add('add-form', 'hidden');
 
     const nameLabel = document.createElement('label');
     nameLabel.setAttribute('for', 'taskname');
@@ -122,7 +134,7 @@ function createTaskForm() {
 // Create Note Form
 function createNoteForm() {
     const form = document.createElement('form');
-    form.classList.add('add-note-form');
+    form.classList.add('add-form', 'hidden');
 
     const title = document.createElement('input');
     title.setAttribute('type', 'text');
@@ -156,7 +168,8 @@ export default class RenderPage {
         }
         if (page === allTasks || page === notes) {          // Then add the "add task/note" button and eventlistener 
             main.appendChild(addTaskButton(page));
-            addTaskOnClick(page);
+            const addBtn = document.querySelector('.add-task');
+            addTaskOnClick(addBtn, page);
         }
     }
 
