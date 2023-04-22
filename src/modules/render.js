@@ -63,13 +63,16 @@ function addTaskButton(page) {
     return addTaskDiv;
 }
 
+
+
 // Causes form to popup when add-task/note div clicked on 
 // Different for Task and Notes pages
 // Async setTimeouts used to allow DOM to load the form before adding event listener for it
 function addTaskOnClick(btn, page) {
+    const form = document.getElementsByClassName('add-form')[0];
+    // Add-btn onclick event
     btn.addEventListener('click', () => {
         setTimeout(() => {
-            const form = document.getElementsByClassName('add-form')[0];
             form.classList.remove('hidden');
             btn.classList.add('hidden');
             (page === allTasks) ? document.getElementById('taskname').focus() : document.getElementById('note-title').focus();
@@ -79,6 +82,9 @@ function addTaskOnClick(btn, page) {
     document.addEventListener('click', () => {
         form.classList.add('hidden');
         btn.classList.remove('hidden');
+    })
+    form.addEventListener('click', (event) => {
+        event.stopPropagation();
     })
 }
 
