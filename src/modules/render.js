@@ -146,6 +146,10 @@ function createTaskForm() {
     projectSelect.appendChild(noneOption);
     addProjectOptions(projectSelect);                           // add any projects if any to dropdown list
 
+    const submitBtn = document.createElement('button');         // submit button
+    submitBtn.setAttribute('id', 'submit-btn');
+    submitBtn.append('Submit');
+
     form.appendChild(nameLabel);                        // append all elements created to form
     form.appendChild(nameInput);
     form.appendChild(details);
@@ -153,6 +157,7 @@ function createTaskForm() {
     form.appendChild(dateInput);
     form.appendChild(projectLabel);
     form.appendChild(projectSelect);
+    form.appendChild(submitBtn);
     return form;
 }
 
@@ -184,8 +189,13 @@ function createNoteForm() {
     details.setAttribute('rows', '5');
     details.setAttribute('placeholder', 'Details (Optional)')
 
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('id', 'submit-btn');
+    submitBtn.append('Submit');
+
     form.appendChild(title);
     form.appendChild(details);
+    form.appendChild(submitBtn);
     return form;
 }
 
