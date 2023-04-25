@@ -4,7 +4,7 @@
  */
 
 // saved to call .click() method for closing form instead of "submitting"
-const nav = document.querySelector('nav');
+const main = document.querySelector('.main');
 
 export default function addSubmitFormListener() {
     const form = document.getElementsByClassName('add-form')[0];
@@ -16,6 +16,6 @@ export default function addSubmitFormListener() {
         const formData = new FormData(form);
         const values = [...formData.values()];
         console.log(values);
-        nav.click();
+        main.click();
     })
 }
