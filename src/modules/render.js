@@ -74,6 +74,7 @@ function addTaskOnClick(btn, page) {
     // Add-btn onclick event
     btn.addEventListener('click', () => {
         setTimeout(() => {
+            resetForm(page);            // resets inputs when form is opened next time
             form.classList.remove('hidden');
             btn.classList.add('hidden');
             (page === allTasks) ? document.getElementById('taskname').focus() : document.getElementById('note-title').focus();
@@ -82,7 +83,6 @@ function addTaskOnClick(btn, page) {
     // Clicking outside of form re-hides the form and unhides the add button
     const main = document.querySelector('.main');
     main.addEventListener('click', () => {
-        resetForm(page);           // resets inputs when form is closed
         form.classList.add('hidden');
         btn.classList.remove('hidden');
     })
