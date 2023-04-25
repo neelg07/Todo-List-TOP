@@ -1,3 +1,4 @@
+import Task from "./tasks";
 /** Logic for handling Add-Task and Add-Note form on submit events
  *  Takes in data from the form fields and instantiates an obj for it
  *  Renders the list of respective data 
@@ -15,7 +16,7 @@ export default function addSubmitFormListener() {
         e.preventDefault();
         const formData = new FormData(form);
         const values = [...formData.values()];
-        console.log(values);
+        const task = new Task(...values);
         main.click();
     })
 }
