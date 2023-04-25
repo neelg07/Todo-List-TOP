@@ -11,14 +11,14 @@ export default class Task {
         this.date = date;
         this.important = false;
         this.project = project;
-        
+
         // Add newly created instance to tasks static array
-        Task.tasks.push(this);
+        Task.taskList.push(this);
         console.log(Task.tasks);
     }
 
     // Array holding all task objects
-    static tasks = [];
+    static taskList = [];
 
     // Getters and Setters
     set title(title) {              // Title
