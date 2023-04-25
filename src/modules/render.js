@@ -1,4 +1,5 @@
 import MenuBar from "./MenuBar";
+import addSubmitFormListener from "./formsubmit";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -79,7 +80,8 @@ function addTaskOnClick(btn, page) {
         }, 1)
     })
     // Clicking outside of form re-hides the form and unhides the add button
-    document.addEventListener('click', () => {
+    const main = document.querySelector('.main');
+    main.addEventListener('click', () => {
         resetForm(page);           // resets inputs when form is closed
         form.classList.add('hidden');
         btn.classList.remove('hidden');
@@ -204,12 +206,14 @@ const main = document.querySelector('.main');
 export default class RenderPage {
 
     static render(page) {
-        RenderPage.resetDOM();
+        RenderPage.resetDOM();                                  // clear main of all children, then
         main.appendChild(createPageTitle(page));               // add page title/header
         if (page === allTasks) {
             main.appendChild(createTaskForm());              // if All Tasks page create and append task form
-        } else if (page === notes) {                        // else if Notes page, create and append notes form
-            main.appendChild(createNoteForm());       
+            addSubmitFormListener();                         // then add event listener for submit
+        } else if (page === notes) {                        
+            main.appendChild(createNoteForm());             // else if Notes page, create and append notes form
+            addSubmitFormListener();                        // and add the event listener for submit
         }
         if (page === allTasks || page === notes) {          // Then add the "add task/note" button and eventlistener 
             main.appendChild(addTaskButton(page));
