@@ -201,6 +201,14 @@ function createNoteForm() {
     return form;
 }
 
+// Creates Div to store and render
+// the tasks w/ respect to the page
+function createTaskSection() {
+    const taskDiv = document.createElement('div');
+    taskDiv.classList.add('task-section');
+    return taskDiv;
+}
+
 const main = document.querySelector('.main');
 
 export default class RenderPage {
@@ -220,6 +228,7 @@ export default class RenderPage {
             const addBtn = document.querySelector('.add-task');
             addTaskOnClick(addBtn, page);
         }
+        main.appendChild(createTaskSection());
     }
 
     static resetDOM() {
