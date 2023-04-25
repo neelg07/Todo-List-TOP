@@ -4,14 +4,22 @@
  * generate the pages in the web app  
 */
 
-class Task {
+export default class Task {
     constructor(title, detail, date, project) {
         this.title = title;
         this.detail = detail;
         this.date = date;
         this.important = false;
         this.project = project;
+        
+        // Add newly created instance to tasks static array
+        Task.tasks.push(this);
+        console.log(Task.tasks);
     }
+
+    // Array holding all task objects
+    static tasks = [];
+
     // Getters and Setters
     set title(title) {              // Title
         this._title = title;
