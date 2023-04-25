@@ -1,5 +1,6 @@
 import MenuBar from "./MenuBar";
 import addSubmitFormListener from "./formsubmit";
+import Task from "./tasks";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -210,6 +211,7 @@ function createTaskSection() {
 }
 
 const main = document.querySelector('.main');
+const taskDiv = document.getElementsByClassName('task-section')[0];
 
 export default class RenderPage {
 
@@ -228,7 +230,26 @@ export default class RenderPage {
             const addBtn = document.querySelector('.add-task');
             addTaskOnClick(addBtn, page);
         }
-        main.appendChild(createTaskSection());
+        main.appendChild(createTaskSection());              // add div to hold tasks then 
+        RenderPage.renderTasks(page);                      // dynamically render tasks from list
+    }
+
+    // Renders tasklist inside task div
+    static renderTasks(page) {
+        switch (page) {                                 // if page is allTasks, render ALL tasks
+            case allTasks:
+                for (let task of Task.taskList) {
+                    taskDiv.appendChild(createTaskNode(task));      // TODO: "Today", "This Week", and "Notes" logic
+                }
+                break;
+            case important:                                 // if page is Important, render all starred/important tasks only
+                for (let task of Task.taskList) {
+                    if (task.important) {
+                        taskDiv.appendChild(createTaskNode(task));
+                    }
+                }
+                break;
+        }
     }
 
     static resetDOM() {
