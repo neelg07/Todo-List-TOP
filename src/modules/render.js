@@ -1,5 +1,5 @@
 import MenuBar from "./MenuBar";
-import addSubmitFormListener from "./formsubmit";
+import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import Task from "./tasks";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
@@ -66,7 +66,6 @@ function addTaskButton(page) {
 }
 
 
-
 // Causes form to popup when add-task/note div clicked on 
 // Different for Task and Notes pages
 // Async setTimeouts used to allow DOM to load the form before adding event listener for it
@@ -82,7 +81,6 @@ function addTaskOnClick(btn, page) {
         }, 1)
     })
     // Clicking outside of form re-hides the form and unhides the add button
-    const main = document.querySelector('.main');
     main.addEventListener('click', () => {
         form.classList.add('hidden');
         btn.classList.remove('hidden');
@@ -92,129 +90,62 @@ function addTaskOnClick(btn, page) {
     })
 }
 
-function resetForm(page) {
-    if (page === allTasks) {
-        document.getElementById('taskname').value = '';
-        document.getElementById('details').value = '';
-        document.getElementById('duedate').value = null;
-    } else if (page === notes) {
-        document.getElementById('note-title').value = '';
-        document.getElementById('note-details').value = '';
-    }
-} 
-
-// Add Task Form DOM Creation
-function createTaskForm() {
-    const form = document.createElement('form');            // create form
-    form.classList.add('add-form', 'hidden');
-
-    const nameLabel = document.createElement('label');      // label for task name
-    nameLabel.setAttribute('for', 'taskname');
-    nameLabel.append(`Task Title* : `);
-
-    const nameInput = document.createElement('input');      // task name input
-    nameInput.setAttribute('type', 'text');
-    nameInput.setAttribute('name', 'task');
-    nameInput.setAttribute('id', 'taskname');
-    nameInput.setAttribute('placeholder', 'Task');
-
-    const details = document.createElement('textarea');     // textarea for details
-    details.setAttribute('name', 'details');
-    details.setAttribute('id', 'details');
-    details.setAttribute('cols', '20');
-    details.setAttribute('rows', '5');
-    details.setAttribute('placeholder', 'Details (Optional)');
-
-    const dateLabel = document.createElement('label');          // due date label
-    dateLabel.setAttribute('for', 'duedate');
-    dateLabel.append('Due Date (Optional): ');
-
-    const dateInput = document.createElement('input');          // date input
-    dateInput.setAttribute('type', 'date');
-    dateInput.setAttribute('name', 'date');
-    dateInput.setAttribute('id', 'duedate');
-
-    const projectLabel = document.createElement('label');   // label for project select
-    projectLabel.setAttribute('for', 'project');
-    projectLabel.append('Choose a project (Optional): ');
-
-    const projectSelect = document.createElement('select');     // select element (dropdown list)
-    projectSelect.setAttribute('name', 'project');
-    projectSelect.setAttribute('id', 'project');
-
-    const noneOption = document.createElement('option');        // Auto select option that is for no association to a project
-    noneOption.setAttribute('value', 'none');
-    noneOption.append('-none-');
-    noneOption.selected = true;
-    projectSelect.appendChild(noneOption);
-    addProjectOptions(projectSelect);                           // add any projects if any to dropdown list
-
-    const submitBtn = document.createElement('button');         // submit button
-    submitBtn.setAttribute('id', 'submit-btn');
-    submitBtn.append('Submit');
-
-    form.appendChild(nameLabel);                        // append all elements created to form
-    form.appendChild(nameInput);
-    form.appendChild(details);
-    form.appendChild(dateLabel);
-    form.appendChild(dateInput);
-    form.appendChild(projectLabel);
-    form.appendChild(projectSelect);
-    form.appendChild(submitBtn);
-    return form;
-}
-
-// Adds all available projects as options for Project in task form
-function addProjectOptions(selectDiv) {
-    for (let project of MenuBar.projects) {
-        let option = document.createElement('option');
-        option.setAttribute('value', project.title);
-        option.append(project.title);
-        selectDiv.appendChild(option);
-    }
-}
-
-// Create Note Form
-function createNoteForm() {
-    const form = document.createElement('form');
-    form.classList.add('add-form', 'hidden');
-
-    const title = document.createElement('input');
-    title.setAttribute('type', 'text');
-    title.setAttribute('placeholder', 'Note');
-    title.setAttribute('name', 'note-title');
-    title.setAttribute('id', 'note-title');
-
-    const details = document.createElement('textarea');
-    details.setAttribute('name', 'note-details');
-    details.setAttribute('id', 'note-details');
-    details.setAttribute('cols', '20');
-    details.setAttribute('rows', '5');
-    details.setAttribute('placeholder', 'Details (Optional)')
-
-    const submitBtn = document.createElement('button');
-    submitBtn.setAttribute('id', 'submit-btn');
-    submitBtn.append('Submit');
-
-    form.appendChild(title);
-    form.appendChild(details);
-    form.appendChild(submitBtn);
-    return form;
-}
-
 // Creates Div to store and render
 // the tasks w/ respect to the page
-function createTaskSection() {
+function createTaskNode(task) {
     const taskDiv = document.createElement('div');
-    taskDiv.classList.add('task-section');
+    taskDiv.setAttribute('id', 'task-section');
+
+    taskDiv.appendChild(createLeftDiv(task));
+    taskDiv.appendChild(createRightDiv(task));
     return taskDiv;
+}
+
+// Creates left div with checkbox and task title
+function createLeftDiv(task) {
+    const leftDiv = document.createElement('div');
+    leftDiv.setAttribute('id', 'task-left');
+
+    const check = document.createElement('input');
+    check.setAttribute('type', 'checkbox');
+    check.setAttribute('id', 'task-check');
+    leftDiv.appendChild(check);
+
+    const taskTitle = document.createElement('h2');
+    taskTitle.setAttribute('id', 'task-title');
+    taskTitle.append(task.title);
+    leftDiv.appendChild(taskTitle);
+
+    return leftDiv;
+}
+// Creates right div with important star and "more" button/icon
+function createRightDiv(task) {
+    const rightDiv = document.createElement('div');
+    rightDiv.setAttribute('id', 'task-right');
+
+    const star = document.createElement('input');       // important checkbox
+    star.setAttribute('type', 'checkbox');
+    star.setAttribute('id', 'important');
+    star.classList.add('not-important');
+    rightDiv.appendChild(star);
+
+    const moreTab = document.createElement('button');       // button to expand task
+    moreTab.setAttribute('type', 'button');
+    moreTab.setAttribute('id', 'task-details');
+    const moreImg = document.createElement('img');          // append expand icon into button
+    moreImg.src = './images/expand-button.png';
+    moreImg.alt = 'expand details';
+    moreTab.appendChild(moreImg);
+
+    rightDiv.appendChild(moreTab);
+    return rightDiv;
 }
 
 const main = document.querySelector('.main');
 const taskDiv = document.getElementsByClassName('task-section')[0];
 
 export default class RenderPage {
-
+    // Renders the page itself inside div.main
     static render(page) {
         RenderPage.resetDOM();                                  // clear main of all children, then
         main.appendChild(createPageTitle(page));               // add page title/header
@@ -230,26 +161,15 @@ export default class RenderPage {
             const addBtn = document.querySelector('.add-task');
             addTaskOnClick(addBtn, page);
         }
-        main.appendChild(createTaskSection());              // add div to hold tasks then 
-        RenderPage.renderTasks(page);                      // dynamically render tasks from list
+        RenderPage.renderTasks();                           // render all tasks for the page
     }
 
-    // Renders tasklist inside task div
-    static renderTasks(page) {
-        switch (page) {                                 // if page is allTasks, render ALL tasks
-            case allTasks:
-                for (let task of Task.taskList) {
-                    taskDiv.appendChild(createTaskNode(task));      // TODO: "Today", "This Week", and "Notes" logic
-                }
-                break;
-            case important:                                 // if page is Important, render all starred/important tasks only
-                for (let task of Task.taskList) {
-                    if (task.important) {
-                        taskDiv.appendChild(createTaskNode(task));
-                    }
-                }
-                break;
+    // Renders tasklist inside div.task-section
+    static renderTasks() {
+        for (let task of Task.taskList) {
+            main.appendChild(createTaskNode(task));        // add task div to div.main
         }
+        // const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
     }
 
     static resetDOM() {
