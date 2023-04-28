@@ -418,7 +418,7 @@ textarea {
     cursor: pointer;
 }
 
-#task-check:before {
+#task-check::before {
     content: "";
     display: inline-block;
     width: 25px;
@@ -446,4 +446,8 @@ textarea {
     bottom: 7px;
     right: 5px;
     visibility: visible;
+}
+
+.strike-out {
+    text-decoration: line-through;
 }
