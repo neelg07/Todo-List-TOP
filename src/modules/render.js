@@ -134,7 +134,8 @@ function createRightDiv(task) {
     moreTab.setAttribute('id', 'task-details');
     const moreImg = document.createElement('img');          // append expand icon into button
     moreImg.src = './images/expand-button.png';
-    moreImg.alt = 'expand details';
+    moreImg.alt = 'expand-details';
+    moreImg.setAttribute('id', 'expand-btn');
     moreTab.appendChild(moreImg);
 
     rightDiv.appendChild(moreTab);
@@ -151,17 +152,16 @@ export default class RenderPage {
         main.appendChild(createPageTitle(page));               // add page title/header
         if (page === allTasks) {
             main.appendChild(createTaskForm());              // if All Tasks page create and append task form
-            addSubmitFormListener();                         // then add event listener for submit
         } else if (page === notes) {                        
             main.appendChild(createNoteForm());             // else if Notes page, create and append notes form
-            addSubmitFormListener();                        // and add the event listener for submit
         }
         if (page === allTasks || page === notes) {          // Then add the "add task/note" button and eventlistener 
             main.appendChild(addTaskButton(page));
             const addBtn = document.querySelector('.add-task');
             addTaskOnClick(addBtn, page);
+            addSubmitFormListener(page);                 // add the event listener for submit form
         }
-        RenderPage.renderTasks();                           // render all tasks for the page
+        RenderPage.renderTasks();                     // render all tasks for the page
     }
 
     // Renders tasklist inside div.task-section
