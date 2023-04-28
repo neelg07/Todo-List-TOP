@@ -1,6 +1,7 @@
 import MenuBar from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import Task from "./tasks";
+import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -116,6 +117,7 @@ function createLeftDiv(task) {
     taskTitle.append(task.title);
     leftDiv.appendChild(taskTitle);
 
+    addCheckEventListener(task, check);
     return leftDiv;
 }
 // Creates right div with important star and "more" button/icon
@@ -126,7 +128,6 @@ function createRightDiv(task) {
     const star = document.createElement('input');       // important checkbox
     star.setAttribute('type', 'checkbox');
     star.setAttribute('id', 'important');
-    star.classList.add('not-important');
     rightDiv.appendChild(star);
 
     const moreTab = document.createElement('button');       // button to expand task
@@ -137,9 +138,10 @@ function createRightDiv(task) {
     moreImg.alt = 'expand-details';
     moreImg.setAttribute('id', 'expand-btn');
     moreTab.appendChild(moreImg);
-
     rightDiv.appendChild(moreTab);
-    return rightDiv;
+
+    addRightDivListeners(task, star, moreTab);        // add event listeners to star checkbox and expand tab
+    return rightDiv;                                  // using corresponding task instance
 }
 
 const main = document.querySelector('.main');
@@ -169,7 +171,7 @@ export default class RenderPage {
         for (let task of Task.taskList) {
             main.appendChild(createTaskNode(task));        // add task div to div.main
         }
-        // const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
+        const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
     }
 
     static resetDOM() {
