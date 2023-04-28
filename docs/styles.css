@@ -286,6 +286,7 @@ footer {
     display: flex;
     flex-flow: column;
     align-items: center;
+    gap: 10px;
 }
 
 .page-title {
@@ -342,4 +343,107 @@ textarea {
     width: 100px;
     align-self: center;
     margin-top: 10px;
+}
+
+/** Task Section */
+#task-section {
+    display: flex;
+    background-color: lightgray;
+    border-radius: 5px;
+    width: 60%;
+    height: 45px;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+#task-left,
+#task-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#task-left {
+    margin-left: 20px;
+    gap: 20px;
+}
+
+#task-right {
+    margin-right: 20px;
+    gap: 15px;
+}
+
+#task-details {
+    background: none;
+    border: none;
+}
+
+#expand-btn {
+    width: 20px;
+    cursor: pointer;
+}
+
+#expand-btn:hover {
+    transform: scale(1.2);
+}
+
+#expand-btn:active {
+    transform: scale(1);
+}
+
+/** Important/Priority Star Checkbox */
+#important {
+    visibility: hidden;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+#important::before {
+    content: "\2606";
+    position: relative;
+    bottom: 25px;
+    right: 10px;
+    visibility: visible;
+}
+
+#important:checked:before {
+    content: "\2605";
+    position: relative;
+}
+
+/** Finish task Checkbox */ 
+#task-check {
+    visibility: hidden;
+    cursor: pointer;
+}
+
+#task-check:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid black;
+
+    position: relative;
+    bottom: 7px;
+    right: 5px;
+    visibility: visible;
+}
+
+#task-check:checked:before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+    outline: 2px solid black;
+    background-color: black;
+
+    position: relative;
+    bottom: 7px;
+    right: 5px;
+    visibility: visible;
 }
