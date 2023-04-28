@@ -15,7 +15,7 @@ const notes = document.querySelector('.notes');
 // saved to call .click() method for closing form instead of "submitting"
 const main = document.querySelector('.main');
 
-export function addSubmitFormListener() {
+export function addSubmitFormListener(page) {
     const form = document.getElementsByClassName('add-form')[0];
 
     form.addEventListener('submit', (e) => {
@@ -26,7 +26,7 @@ export function addSubmitFormListener() {
         const values = [...formData.values()];
         const task = new Task(...values);
         main.click();
-        RenderPage.renderTasks();                      // dynamically render tasks from list
+        RenderPage.render(page);                      // dynamically render tasks from list
     })
 }
 
