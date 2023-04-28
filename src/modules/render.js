@@ -128,6 +128,9 @@ function createRightDiv(task) {
     const star = document.createElement('input');       // important checkbox
     star.setAttribute('type', 'checkbox');
     star.setAttribute('id', 'important');
+    if (task.important) {
+        star.checked = true;
+    }
     rightDiv.appendChild(star);
 
     const moreTab = document.createElement('button');       // button to expand task
@@ -145,7 +148,6 @@ function createRightDiv(task) {
 }
 
 const main = document.querySelector('.main');
-const taskDiv = document.getElementsByClassName('task-section')[0];
 
 export default class RenderPage {
     // Renders the page itself inside div.main
@@ -168,10 +170,22 @@ export default class RenderPage {
 
     // Renders tasklist inside div.task-section
     static renderTasks() {
-        for (let task of Task.taskList) {
-            main.appendChild(createTaskNode(task));        // add task div to div.main
-        }
         const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
+        
+        switch (page) {
+            case allTasks:
+                for (let task of Task.taskList) {
+                    main.appendChild(createTaskNode(task));        // add task div to div.main
+                }
+                break;
+            case important:
+                for (let task of Task.taskList) {
+                    if (task.important) {
+                        main.appendChild(createTaskNode(task));     // add task if it is starred
+                    }
+                }
+                break;
+        }
     }
 
     static resetDOM() {
