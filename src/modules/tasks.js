@@ -43,7 +43,6 @@ export default class Task {
 
     set important(important) {          // important
         this._important = important;
-        console.log(this);
     }
     get important() {
         return this._important;
