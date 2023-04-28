@@ -8,7 +8,9 @@ export function addRightDivListeners(task, starImg, expandImg) {
 }
 
 // Important "star" checkbox event listener
+// click page tab after to reset with updated tasks
 function addStarListener(task, starImg) {
+    const page = document.getElementsByClassName('selected')[0];
 
     starImg.addEventListener('change', () => {
         if (starImg.checked) {
@@ -16,6 +18,7 @@ function addStarListener(task, starImg) {
         } else {
             task.important = false;
         }
+        page.click();
     })
 }
 
