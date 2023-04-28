@@ -8,5 +8,5 @@ import MenuBar from "./modules/MenuBar"
 // Render 'All Tasks' Page
 window.addEventListener('load', () => {
     MenuBar.addOnClicks();
-    MenuBar.renderPage(MenuBar.miscellaneous[0]);
+    MenuBar.miscellaneous[0].click();
 });
