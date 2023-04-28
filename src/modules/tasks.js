@@ -14,7 +14,6 @@ export default class Task {
 
         // Add newly created instance to tasks static array
         Task.taskList.push(this);
-        console.log(Task.tasks);
     }
 
     // Array holding all task objects
@@ -40,6 +39,14 @@ export default class Task {
     }
     get date() {
         return this._date;
+    }
+
+    set important(important) {          // important
+        this._important = important;
+        console.log(this);
+    }
+    get important() {
+        return this._important;
     }
 
     set project(project) {          // Project 
