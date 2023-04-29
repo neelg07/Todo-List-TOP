@@ -7,9 +7,6 @@ import MenuBar from "./MenuBar";
  */
 
 const allTasks = document.querySelector('.all-tasks');
-const today = document.querySelector('.today');
-const week = document.querySelector('.week');
-const important = document.querySelector('.important');
 const notes = document.querySelector('.notes');
 
 // saved to call .click() method for closing form instead of "submitting"
@@ -26,7 +23,8 @@ export function addSubmitFormListener(page) {
         const values = [...formData.values()];
         const task = new Task(...values);
         main.click();
-        RenderPage.render(page);                      // dynamically render tasks from list
+        // dynamically render tasks from list
+        RenderPage.render(page);
     })
 }
 
