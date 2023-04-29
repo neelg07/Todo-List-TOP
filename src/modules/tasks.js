@@ -4,6 +4,8 @@
  * generate the pages in the web app  
 */
 
+import { isExists } from "date-fns";
+
 export default class Task {
     constructor(title, detail, date, project) {
         this.title = title;
@@ -35,14 +37,14 @@ export default class Task {
     }
 
     set date(date) {                                        // Date
-        // Add 1 to dd value to correct the date input
-        let dateArray = date.split('-');
-        let corrected = parseInt(dateArray[2]) + 1;
-        let correctedDate = `${dateArray[0]}-${dateArray[1]}-${corrected.toString()}`;
-        // Normalize date input by setting to UTC - 00:00:00 time
-        const myDate = new Date(correctedDate);
-        myDate.setUTCHours(0, 0, 0);
-        this._date = myDate;
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        if (date) {
+            const dateArray = date.split('-');
+            this._date = `${months[parseInt(dateArray[1])-1]}-${dateArray[2]}-${dateArray[0]}`;
+        } else {
+            this._date = "";
+        }
+        console.log(this.date);
     }
     get date() {
         return this._date;
