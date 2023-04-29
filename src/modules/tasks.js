@@ -34,8 +34,15 @@ export default class Task {
         return this._detail;
     }
 
-    set date(date) {                // Date
-        this._date = date;
+    set date(date) {                                        // Date
+        // Add 1 to dd value to correct the date input
+        let dateArray = date.split('-');
+        let corrected = parseInt(dateArray[2]) + 1;
+        let correctedDate = `${dateArray[0]}-${dateArray[1]}-${corrected.toString()}`;
+        // Normalize date input by setting to UTC - 00:00:00 time
+        const myDate = new Date(correctedDate);
+        myDate.setUTCHours(0, 0, 0);
+        this._date = myDate;
     }
     get date() {
         return this._date;
