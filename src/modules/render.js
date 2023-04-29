@@ -2,7 +2,7 @@ import MenuBar from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import Task from "./tasks";
 import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
-import { format } from 'date-fns';
+import { format, isToday } from 'date-fns';
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -127,8 +127,8 @@ function createRightDiv(task) {
     rightDiv.setAttribute('id', 'task-right');
 
     if (task.date) {
-        const dueDate = document.createElement('h2');                       // due date
-        dueDate.append(format(new Date(task.date), 'MMM-dd-yyyy'));        // format w/ date-fns
+        const dueDate = document.createElement('h2');             // due date
+        dueDate.append(task.date);                              // format date 
         rightDiv.append(dueDate);
     } 
 
@@ -183,6 +183,11 @@ export default class RenderPage {
             case allTasks:
                 for (let task of Task.taskList) {
                     main.appendChild(createTaskNode(task));        // add task div to div.main
+                }
+                break;
+            case today:
+                for (let task of Task.taskList) {
+                    
                 }
                 break;
             case important:
