@@ -2,6 +2,7 @@ import MenuBar from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import Task from "./tasks";
 import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
+import { format } from 'date-fns';
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -124,6 +125,10 @@ function createLeftDiv(task) {
 function createRightDiv(task) {
     const rightDiv = document.createElement('div');
     rightDiv.setAttribute('id', 'task-right');
+
+    const dueDate = document.createElement('h2');                       // due date
+    dueDate.append(format(new Date(task.date), 'MMM-dd-yyyy'));        // format w/ date-fns
+    rightDiv.append(dueDate);
 
     const star = document.createElement('input');       // important checkbox
     star.setAttribute('type', 'checkbox');
