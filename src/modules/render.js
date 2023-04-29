@@ -182,21 +182,20 @@ export default class RenderPage {
         const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
         
         switch (page) {
-            case allTasks:
+            case allTasks:                          // add task div to div.main
+                for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };
+                break;
+            case today:                             // add task div if due date is today
+                const todaysDate = getTodaysDate();
                 for (let task of Task.taskList) {
-                    main.appendChild(createTaskNode(task));        // add task div to div.main
+                    console.log(todaysDate);
+                    console.log(task.date);
+                    if (todaysDate === task.date) { main.appendChild(createTaskNode(task)) };
                 }
                 break;
-            case today:
+            case important:                         // add task if it is starred
                 for (let task of Task.taskList) {
-                    
-                }
-                break;
-            case important:
-                for (let task of Task.taskList) {
-                    if (task.important) {
-                        main.appendChild(createTaskNode(task));     // add task if it is starred
-                    }
+                    if (task.important) { main.appendChild(createTaskNode(task)) };
                 }
                 break;
         }
@@ -205,4 +204,18 @@ export default class RenderPage {
     static resetDOM() {
         main.innerHTML = '';
     }
+}
+
+
+// Returns Today's Date as a string
+// Used to check equivalency for task due dates
+// Used in rendering the "Today" page
+function getTodaysDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');     // getMonth is 0 indexed so add 1 and convert to string with 2 digits
+    const day = today.getDate().toString().padStart(2, '0');
+
+    const formatted = `${year}-${month}-${day}`;
+    return formatted; 
 }
