@@ -2,7 +2,6 @@ import MenuBar from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import Task from "./tasks";
 import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
-import { format, isToday } from 'date-fns';
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
  * dynamically renders the page selected in the .main section
@@ -126,9 +125,12 @@ function createRightDiv(task) {
     const rightDiv = document.createElement('div');
     rightDiv.setAttribute('id', 'task-right');
 
-    if (task.date) {
-        const dueDate = document.createElement('h2');             // due date
-        dueDate.append(task.date);                              // format date 
+    if (task.date) {                                            // due date
+        const dueDate = document.createElement('h2');           // format 'yyyy-mm-dd' into 'MMM-dd-yyyy'
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const dateArray = task.date.split('-');
+        const formattedDate = `${months[parseInt(dateArray[1])-1]}-${dateArray[2]}-${dateArray[0]}`;
+        dueDate.append(formattedDate);
         rightDiv.append(dueDate);
     } 
 

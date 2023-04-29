@@ -4,8 +4,6 @@
  * generate the pages in the web app  
 */
 
-import { isExists } from "date-fns";
-
 export default class Task {
     constructor(title, detail, date, project) {
         this.title = title;
@@ -37,14 +35,7 @@ export default class Task {
     }
 
     set date(date) {                                        // Date
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        if (date) {
-            const dateArray = date.split('-');
-            this._date = `${months[parseInt(dateArray[1])-1]}-${dateArray[2]}-${dateArray[0]}`;
-        } else {
-            this._date = "";
-        }
-        console.log(this.date);
+        this._date = date;
     }
     get date() {
         return this._date;
