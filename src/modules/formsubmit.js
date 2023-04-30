@@ -17,11 +17,14 @@ export function addSubmitFormListener(page) {
 
     form.addEventListener('submit', (e) => {
         // Prevent page reload and 
-        // save fields to FormData object
+        // save fields to FormData object and 'values' variable
         e.preventDefault();
         const formData = new FormData(form);
         const values = [...formData.values()];
-        const task = new Task(...values);
+
+        if (page === allTasks) {const task = new Task(...values)}       // generate either new Task or
+        else {const note = new Note(...values)}                         // new note depending on page
+
         main.click();
         // dynamically render tasks from list
         RenderPage.render(page);
