@@ -1,10 +1,11 @@
 /**Task Module 
  * implements task generation via Task class
+ * implements note generation via Note class
  * feeds to the DOM manipulation module to 
  * generate the pages in the web app  
 */
 
-export default class Task {
+export class Task {
     constructor(title, detail, date, project) {
         this.title = title;
         this.detail = detail;
@@ -55,3 +56,31 @@ export default class Task {
         return this._project;
     }
 };
+
+export class Note {
+    constructor(title, detail) {
+        this.title = title;
+        this.detail = detail;
+
+        // Add newly created instance to notes static array
+        Note.noteList.push(this);
+    }
+
+    // Array holding all note objects
+    static noteList = [];
+
+    // Getters and Setters
+    set title(title) {              // Title
+        this._title = title;
+    }
+    get title() {
+        return this._title;
+    }
+
+    set detail(detail) {            // Details
+        this._detail = detail;
+    }
+    get detail() {
+        return this._detail;
+    }
+}

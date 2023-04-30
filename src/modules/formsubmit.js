@@ -1,4 +1,4 @@
-import Task from "./tasks";
+import { Task, Note} from "./tasks";
 import RenderPage from "./render";
 import MenuBar from "./MenuBar";
 /** Logic for handling Add-Task and Add-Note form on submit events

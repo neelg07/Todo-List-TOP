@@ -1,6 +1,6 @@
 import MenuBar from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
-import Task from "./tasks";
+import { Task, Note } from "./tasks";
 import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
 /**Render Module
  * is called by onclick listeners via MenuBar.renderPage method
@@ -208,7 +208,7 @@ export default class RenderPage {
                 break;
         }
     }   
-    
+
     static resetDOM() {
         main.innerHTML = '';
     }
