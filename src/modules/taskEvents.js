@@ -30,7 +30,7 @@ function addExpandListener(task, expandImg) {
     })
 }
 
-export function addCheckEventListener(task, check) {
+export function addCheckEventListener(check) {
     const taskTitle = check.nextSibling;
     check.addEventListener('change', () => {
         if (check.checked) {
