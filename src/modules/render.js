@@ -188,9 +188,17 @@ export default class RenderPage {
             case today:                             // add task div if due date is today
                 const todaysDate = getTodaysDate();
                 for (let task of Task.taskList) {
-                    console.log(todaysDate);
-                    console.log(task.date);
                     if (todaysDate === task.date) { main.appendChild(createTaskNode(task)) };
+                }
+                break;
+            case week:                             // add task div if due date is due between today - end of week
+                const startDate = new Date();
+                const endDate = new Date(getEndOfWeek());
+                for (let task of Task.taskList) {
+                    const dateArr = task.date.split('-');               // format properly before
+                    dateArr[2] = parseInt(dateArr[2]).toString();       // converting into date object
+                    const taskDate = new Date(dateArr.join('-'));       // and checking if within range
+                    if (taskDate >= startDate && taskDate <= endDate || task.date === getTodaysDate()) { main.appendChild(createTaskNode(task)) }; 
                 }
                 break;
             case important:                         // add task if it is starred
@@ -199,8 +207,8 @@ export default class RenderPage {
                 }
                 break;
         }
-    }
-
+    }   
+    
     static resetDOM() {
         main.innerHTML = '';
     }
@@ -219,3 +227,17 @@ function getTodaysDate() {
     const formatted = `${year}-${month}-${day}`;
     return formatted; 
 }
+
+// Returns the end of the week
+// Used to get range of dates used for "This Week" page
+function getEndOfWeek() {
+    const endOfWeek = new Date();
+    endOfWeek.setDate(endOfWeek.getDate() + 6);
+    // format to string 
+    const year = endOfWeek.getFullYear();
+    const month = (endOfWeek.getMonth() + 1).toString().padStart(2, '0');
+    const day = endOfWeek.getDate().toString();
+
+    const formatted = `${year}-${month}-${day}`;
+    return formatted;
+}   
