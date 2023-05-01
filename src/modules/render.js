@@ -93,42 +93,45 @@ function addTaskOnClick(btn, page) {
 
 // Creates Div to store and render
 // the tasks w/ respect to the page
-function createTaskNode(task) {
+// Works for Notes on note page as well
+function createTaskNode(task_note) {
     const taskDiv = document.createElement('div');
     taskDiv.setAttribute('id', 'task-section');
 
-    taskDiv.appendChild(createLeftDiv(task));
-    taskDiv.appendChild(createRightDiv(task));
+    taskDiv.appendChild(createLeftDiv(task_note));
+    taskDiv.appendChild(createRightDiv(task_note));
     return taskDiv;
 }
 
 // Creates left div with checkbox and task title
-function createLeftDiv(task) {
+function createLeftDiv(task_note) {
     const leftDiv = document.createElement('div');
     leftDiv.setAttribute('id', 'task-left');
 
-    const check = document.createElement('input');
-    check.setAttribute('type', 'checkbox');
-    check.setAttribute('id', 'task-check');
-    leftDiv.appendChild(check);
+    if (task_note instanceof Task) {
+        const check = document.createElement('input');
+        check.setAttribute('type', 'checkbox');
+        check.setAttribute('id', 'task-check');
+        leftDiv.appendChild(check);
+        addCheckEventListener(check);
+    }
 
     const taskTitle = document.createElement('h2');
     taskTitle.setAttribute('id', 'task-title');
-    taskTitle.append(task.title);
+    taskTitle.append(task_note.title);
     leftDiv.appendChild(taskTitle);
 
-    addCheckEventListener(task, check);
     return leftDiv;
 }
 // Creates right div with important star and "more" button/icon
-function createRightDiv(task) {
+function createRightDiv(task_note) {
     const rightDiv = document.createElement('div');
     rightDiv.setAttribute('id', 'task-right');
 
-    if (task.date) {                                            // due date
+    if (task_note.date) {                                            // due date
         const dueDate = document.createElement('h2');           // format 'yyyy-mm-dd' into 'MMM-dd-yyyy'
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const dateArray = task.date.split('-');
+        const dateArray = task_note.date.split('-');
         const formattedDate = `${months[parseInt(dateArray[1])-1]}-${dateArray[2]}-${dateArray[0]}`;
         dueDate.append(formattedDate);
         rightDiv.append(dueDate);
@@ -137,7 +140,7 @@ function createRightDiv(task) {
     const star = document.createElement('input');       // important checkbox
     star.setAttribute('type', 'checkbox');
     star.setAttribute('id', 'important');
-    if (task.important) {
+    if (task_note.important) {
         star.checked = true;
     }
     rightDiv.appendChild(star);
@@ -152,7 +155,7 @@ function createRightDiv(task) {
     moreTab.appendChild(moreImg);
     rightDiv.appendChild(moreTab);
 
-    addRightDivListeners(task, star, moreTab);        // add event listeners to star checkbox and expand tab
+    addRightDivListeners(task_note, star, moreTab);        // add event listeners to star checkbox and expand tab
     return rightDiv;                                  // using corresponding task instance
 }
 
@@ -205,6 +208,9 @@ export default class RenderPage {
                 for (let task of Task.taskList) {
                     if (task.important) { main.appendChild(createTaskNode(task)) };
                 }
+                break;
+            case notes:                             // add all notes in noteList
+                for (let note of Note.noteList) { main.appendChild(createTaskNode(note)) };
                 break;
         }
     }   
