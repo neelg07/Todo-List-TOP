@@ -182,37 +182,43 @@ export default class RenderPage {
 
     // Renders tasklist inside div.task-section
     static renderTasks() {
-        const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
-        
-        switch (page) {
-            case allTasks:                          // add task div to div.main
-                for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };
-                break;
-            case today:                             // add task div if due date is today
-                const todaysDate = getTodaysDate();
-                for (let task of Task.taskList) {
-                    if (todaysDate === task.date) { main.appendChild(createTaskNode(task)) };
-                }
-                break;
-            case week:                             // add task div if due date is due between today - end of week
-                const startDate = new Date();
-                const endDate = new Date(getEndOfWeek());
-                for (let task of Task.taskList) {
-                    const dateArr = task.date.split('-');               // format properly before
-                    dateArr[2] = parseInt(dateArr[2]).toString();       // converting into date object
-                    const taskDate = new Date(dateArr.join('-'));       // and checking if within range
-                    if (taskDate >= startDate && taskDate <= endDate || task.date === getTodaysDate()) { main.appendChild(createTaskNode(task)) }; 
-                }
-                break;
-            case important:                         // add task if it is starred
-                for (let task of Task.taskList) {
-                    if (task.important) { main.appendChild(createTaskNode(task)) };
-                }
-                break;
-            case notes:                             // add all notes in noteList
-                for (let note of Note.noteList) { main.appendChild(createTaskNode(note)) };
-                break;
-        }
+        setTimeout(() => {
+            const page = document.getElementsByClassName('selected')[0];    // retrieve the currently selected page
+            switch (page) {
+                case allTasks:                          // add task div to div.main
+                    for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };
+                    break;
+                case today:                             // add task div if due date is today
+                    const todaysDate = getTodaysDate();
+                    for (let task of Task.taskList) {
+                        if (todaysDate === task.date) { main.appendChild(createTaskNode(task)) };
+                    }
+                    break;
+                case week:                             // add task div if due date is due between today - end of week
+                    const startDate = new Date();
+                    const endDate = new Date(getEndOfWeek());
+                    for (let task of Task.taskList) {
+                        const dateArr = task.date.split('-');               // format properly before
+                        dateArr[2] = parseInt(dateArr[2]).toString();       // converting into date object
+                        const taskDate = new Date(dateArr.join('-'));       // and checking if within range
+                        if (taskDate >= startDate && taskDate <= endDate || task.date === getTodaysDate()) { main.appendChild(createTaskNode(task)) }; 
+                    }
+                    break;
+                case important:                         // add task if it is starred
+                    for (let task of Task.taskList) {
+                        if (task.important) { main.appendChild(createTaskNode(task)) };
+                    }
+                    break;
+                case notes:                             // add all notes in noteList
+                    for (let note of Note.noteList) { main.appendChild(createTaskNode(note)) };
+                    break;
+                default:                                // add project-specific tasks to respective project page 
+                    const projectName = page.id;
+                    for (let task of Task.taskList) {
+                        if (task.project === projectName) { main.appendChild(createTaskNode(task)) }; 
+                    }
+            }
+        }, 1);
     }   
 
     static resetDOM() {
