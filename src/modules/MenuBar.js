@@ -1,5 +1,6 @@
 import Project from "./projects";
 import RenderPage from "./render";
+import { addEditProjectEvent } from "./editProj";
 /**Menu Bar Module
  * contains everything that has to do with the side bar
  * adds event listeners for each menu item
@@ -56,6 +57,7 @@ function createProjectDiv(project) {
     buttonImg.setAttribute('id', 'project-settings');
     
     button.appendChild(buttonImg);
+    addEditProjectEvent(button, project);     // calls function to switch proj tab to edit mode
 
     projectNode.appendChild(projImg);
     projectNode.appendChild(h2);
