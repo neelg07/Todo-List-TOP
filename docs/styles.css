@@ -101,6 +101,7 @@ footer {
     align-items: flex-end;
     padding: 7px 10px;
     border-radius: 5px;
+    height: 20px;
 }
 
 .misc div:hover:not(.selected),
@@ -450,3 +451,25 @@ textarea {
 .strike-out {
     text-decoration: line-through;
 }
+
+/** Edit Mode of Project Divs (triple dot) */
+
+
+
+#edit-proj {
+    background-color: greenyellow;
+    position: relative;
+    left: 0px;
+    width: 50px;
+}
+
+#delete-proj {
+    background-color: red;
+    position: relative;
+    width: 50px;
+}
+
+#cancel-proj-edit {
+    right: 10px;
+}
+
