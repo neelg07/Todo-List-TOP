@@ -22,8 +22,8 @@ export function addSubmitFormListener(page) {
         const formData = new FormData(form);
         const values = [...formData.values()];
 
-        if (page === allTasks) {const task = new Task(...values)}       // generate either new Task or
-        else {const note = new Note(...values)}                         // new note depending on page
+        if (page === allTasks) {new Task(...values)}       // generate either new Task or
+        else {new Note(...values)}                         // new note depending on page
 
         main.click();
         // dynamically render tasks from list
