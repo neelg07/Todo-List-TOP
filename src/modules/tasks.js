@@ -11,6 +11,7 @@ export class Task {
         this.detail = detail;
         this.date = date;
         this.important = false;
+        this.complete = false;
         this.project = project;
 
         // Add newly created instance to tasks static array
@@ -35,7 +36,7 @@ export class Task {
         return this._detail;
     }
 
-    set date(date) {                                        // Date
+    set date(date) {                  // Date
         this._date = date;
     }
     get date() {
@@ -47,6 +48,13 @@ export class Task {
     }
     get important() {
         return this._important;
+    }
+
+    set complete(complete) {        // Complete? 
+        this._complete = complete;
+    }
+    get complete() {
+        return this._complete;
     }
 
     set project(project) {          // Project 
@@ -61,6 +69,7 @@ export class Note {
     constructor(title, detail) {
         this.title = title;
         this.detail = detail;
+        this.complete = false;
 
         // Add newly created instance to notes static array
         Note.noteList.push(this);
@@ -82,5 +91,12 @@ export class Note {
     }
     get detail() {
         return this._detail;
+    }
+
+    set complete(complete) {        // Complete? 
+        this._complete = complete;
+    }
+    get complete() {
+        return this._complete;
     }
 }
