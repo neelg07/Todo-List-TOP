@@ -113,13 +113,14 @@ function createLeftDiv(task_note) {
         check.setAttribute('type', 'checkbox');
         check.setAttribute('id', 'task-check');
         leftDiv.appendChild(check);
-        addCheckEventListener(check);
+        addCheckEventListener(check, task_note);        // arguments == checklist node obj && task/note instance 
     }
 
     const taskTitle = document.createElement('h2');
     taskTitle.setAttribute('id', 'task-title');
     taskTitle.append(task_note.title);
-    leftDiv.appendChild(taskTitle);
+    if (task_note.complete) taskTitle.classList.add('strike-out');      // load tasks w/ or w/o strike-out class 
+    leftDiv.appendChild(taskTitle);                                     // after checking task.complete value
 
     return leftDiv;
 }
