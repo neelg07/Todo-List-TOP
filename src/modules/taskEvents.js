@@ -30,13 +30,14 @@ function addExpandListener(task, expandImg) {
     })
 }
 
-export function addCheckEventListener(check) {
-    const taskTitle = check.nextSibling;
+export function addCheckEventListener(check, task_note) {
     check.addEventListener('change', () => {
         if (check.checked) {
-            taskTitle.classList.add('strike-out');
+            check.nextSibling.classList.add('strike-out');
+            task_note.complete = true;
         } else {
-            taskTitle.classList.remove('strike-out');
+            check.nextSibling.classList.remove('strike-out');
+            task_note.complete = false; 
         }
     })
 }
