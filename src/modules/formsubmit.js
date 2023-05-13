@@ -1,6 +1,7 @@
 import { Task, Note} from "./tasks";
 import RenderPage from "./render";
 import MenuBar from "./MenuBar";
+import Project from "./projects";
 /** Logic for handling Add-Task and Add-Note form on submit events
  *  Takes in data from the form fields and instantiates an obj for it
  *  Renders the list of respective data 
@@ -22,13 +23,24 @@ export function addSubmitFormListener(page) {
         const formData = new FormData(form);
         const values = [...formData.values()];
 
-        if (page === allTasks) {new Task(...values)}       // generate either new Task or
-        else {new Note(...values)}                         // new note depending on page
+        if (page === allTasks) {
+            const task = new Task(...values);               // generate new Task and if applicable
+            addTaskToProject(task);                         // save the task to project instance
+        }
+        else {new Note(...values)}                         // generate new note if on that page
 
         main.click();
         // dynamically render tasks from list
         RenderPage.render(page);
     })
+}
+
+// Adds task to the project it's associated with
+// only if applicable (i.e. if project is selected in form)
+function addTaskToProject(task) {
+    for (let proj of Project.projectList) {                     // check all projects available
+        if (proj.title === task.project) {proj.addTask(task);}  // if any project titles match with task's project
+    }                                                           // push task to the project instance's task array
 }
 
 // Create Note Form
