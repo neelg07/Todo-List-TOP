@@ -34,7 +34,7 @@ function switchProjectMode() {
 const projects = document.querySelector('.my-projects');
 
 // Creates DOM node for a project object passed in
-export function createProjectDiv(project) {
+function createProjectDiv(project) {
     const projectNode = document.createElement('div');
     projectNode.classList.add('project-node');
     projectNode.setAttribute('id', project.title);
