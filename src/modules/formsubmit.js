@@ -38,7 +38,7 @@ export function addSubmitFormListener(page) {
 // Adds task to the project it's associated with
 // only if applicable (i.e. if project is selected in form)
 function addTaskToProject(task) {
-    for (let proj of Project.projectList) {                     // check all projects available
+    for (let proj of MenuBar.projects) {                        // check all projects available
         if (proj.title === task.project) {proj.addTask(task);}  // if any project titles match with task's project
     }                                                           // push task to the project instance's task array
 }
