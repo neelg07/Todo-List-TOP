@@ -1,7 +1,6 @@
 import { Task, Note} from "./tasks";
 import RenderPage from "./render";
-import MenuBar from "./MenuBar";
-import Project from "./projects";
+import { MenuBar } from "./MenuBar";
 /** Logic for handling Add-Task and Add-Note form on submit events
  *  Takes in data from the form fields and instantiates an obj for it
  *  Renders the list of respective data 

@@ -1,4 +1,4 @@
-import MenuBar from "./modules/MenuBar"
+import { MenuBar } from "./modules/MenuBar";
 /**Primary Module
  * imports other modules as needed to implement app functionality
  */

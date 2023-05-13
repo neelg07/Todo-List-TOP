@@ -1,4 +1,4 @@
-import MenuBar from "./MenuBar";
+import { MenuBar } from "./MenuBar";
 import { addSubmitFormListener, createNoteForm, createTaskForm, resetForm } from "./formsubmit";
 import { Task, Note } from "./tasks";
 import { addRightDivListeners, addCheckEventListener } from "./taskEvents";
