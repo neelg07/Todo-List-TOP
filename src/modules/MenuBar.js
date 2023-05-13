@@ -34,7 +34,7 @@ function switchProjectMode() {
 const projects = document.querySelector('.my-projects');
 
 // Creates DOM node for a project object passed in
-function createProjectDiv(project) {
+export function createProjectDiv(project) {
     const projectNode = document.createElement('div');
     projectNode.classList.add('project-node');
     projectNode.setAttribute('id', project.title);
@@ -83,7 +83,7 @@ function addProjectListener(project) {
 }
 
 // Menu Bar Class 
-export default class MenuBar {
+export class MenuBar {
     
     static miscellaneous = [allTasks, today, week, important, notes];
 
