@@ -54,22 +54,20 @@ function deleteProj(project) {                                                 /
     const index = MenuBar.projects.findIndex((proj) => proj === project);      // find index of the project deleted in array
     MenuBar.projects.splice(index, 1);                                         // splice project from array
     deleteProjectTasks(project);                                               // helper func to re-render proj section
-    renderPageAfterDelete();
+    Promise.resolve(MenuBar.renderProjectSection()).then(renderPageAfterDelete());
 }
 
 // Renders a page after deleting a projDiv
 // Dependant on the length of MenuBar.projects
 // after deletion of project from array
 function renderPageAfterDelete() {
-    const allTasks = document.querySelector('.all-tasks');
-    Promise.resolve(MenuBar.renderProjectSection()).then(() => {                        // resolve render of project section
-        if (MenuBar.projects.length >= 1) {                                             // then click on first proj in section
-            const firstProj = document.querySelector('.my-projects').childNodes[0];     // or allTasks if no projects present
-            setTimeout(() => firstProj.click(), 0);                                     // setTimeout used to prevent event loop issues
-        } else {
-            setTimeout(() => allTasks.click(), 0);
-        }
-    }).catch((err) => console.log(err));
+    const allTasks = document.querySelector('.all-tasks');                          // if any proj still in list after delete
+    if (MenuBar.projects.length >= 1) {                                             // then click on first proj in section
+        const firstProj = document.querySelector('.my-projects').childNodes[0];     // or allTasks if no projects present
+        setTimeout(() => firstProj.click(), 10);                                    // setTimeout used to prevent event loop issues
+    } else {
+        setTimeout(() => allTasks.click(), 10);
+    }
 }
 
 // Delete all tasks associated w/ project

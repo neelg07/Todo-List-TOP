@@ -213,10 +213,14 @@ export default class RenderPage {
                 case notes:                             // add all notes in noteList
                     for (let note of Note.noteList) { main.appendChild(createTaskNode(note)) };
                     break;
-                default:                                // add project-specific tasks to respective project page 
-                    const projectName = page.id;
-                    for (let task of Task.taskList) {
-                        if (task.project === projectName) { main.appendChild(createTaskNode(task)) }; 
+                default:                                    // add project-specific tasks to respective project page
+                    if (MenuBar.projects.length >= 1) {     // if projects available
+                        const projectName = page.id;    
+                        for (let task of Task.taskList) {   
+                            if (task.project === projectName) { main.appendChild(createTaskNode(task)) }; 
+                        }
+                    } else {
+                        for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };           // if no projects, render tasks using allTasks logic
                     }
             }
         }, 1);
