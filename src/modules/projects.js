@@ -8,7 +8,13 @@ export default class Project {
     constructor(title) {
         this.title = title;
         this.tasks = [];
+
+        // add new instance into static array of projects
+        Project.projectList.push(this);
     }
+
+    // Array holding all Project objects
+    static projectList = [];
 
     set title(title) {
         this._title = title;
