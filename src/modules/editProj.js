@@ -1,39 +1,55 @@
-import MenuBar from "./MenuBar";
+import { MenuBar } from "./MenuBar";
 import { Task } from "./tasks";
-// Clears the project div selected and calls helper function
-export function addEditProjectEvent(button, project) {
+
+// Hides the children in the project div selected and calls helper function
+export function addEditProjectEvent(button) {
     button.addEventListener('click', () => {
         const projDiv = button.parentNode;
-        projDiv.innerHTML = '';
-        addEditProjBtns(project, projDiv);
+        projDiv.childNodes.forEach(child => {
+            child.classList.add('hidden');
+        })
+        unhideEditButtons(button);
     })
 }
 
+// Unhides edit buttons w/ respect to that projDiv
+function unhideEditButtons(button) {
+    const editBtn = button.nextElementSibling;
+    const deleteBtn = editBtn.nextElementSibling;
+    const cancelBtn = deleteBtn.nextElementSibling;
+
+    editBtn.classList.remove('hidden');
+    deleteBtn.classList.remove('hidden');
+    cancelBtn.classList.remove('hidden');
+}
+
 // Adds new edit layout (3 btns) to projDiv
-function addEditProjBtns(project, projDiv) {
+export function addEditProjBtns(project) {
     const edit = document.createElement('button');
     edit.setAttribute('type', 'button');
     edit.setAttribute('id', 'edit-proj');
+    edit.classList.add('hidden');
     edit.append('Edit');
 
     const del = document.createElement('button');
     del.setAttribute('type', 'button');
     del.setAttribute('id', 'delete-proj');
+    del.classList.add('hidden');
     del.append('Delete');
 
     const cancel = document.createElement('button');
     cancel.setAttribute('type', 'button');
     cancel.setAttribute('id', 'cancel-proj-edit');
+    cancel.classList.add('hidden');
     cancel.append('Cancel');
 
-    projDiv.appendChild(edit);
-    projDiv.appendChild(del);
-    projDiv.appendChild(cancel);
-    projDiv.classList.add('edit-menu');
+    const editBtns = [edit, del, cancel];
 
-    projDiv.childNodes.forEach(buttonNode => {          // add event listener to each button
+    editBtns.forEach(buttonNode => {                    // add event listener to each button
         addProjectEditListeners(buttonNode, project);   // variant on type of buttonNode
     });
+
+    return editBtns;
 }
 
 // Adds event listener to each of the different buttons generated in Project edit mode
@@ -44,9 +60,14 @@ function addProjectEditListeners(button, project) {
         } else if (button.id === 'edit-proj') {     // if edit btn pressed
             console.log(button);
         } else {                                    // if cancel btn pressed
-
+            cancelProjEdit();
         }
     })
+}
+
+// Cancels edit mode and re-renders the project section
+function cancelProjEdit() {
+    console.log('cancel');
 }
 
 // Delete button was pressed on projectDiv
