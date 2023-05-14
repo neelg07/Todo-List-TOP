@@ -5,10 +5,27 @@ import { Task } from "./tasks";
 export function addEditProjectEvent(button) {
     button.addEventListener('click', () => {
         const projDiv = button.parentNode;
-        projDiv.childNodes.forEach(child => {
+        toggleEditModes(projDiv);                       // remove edit btns from all other proj Divs
+        projDiv.classList.add('edit-mode');             // add class to currently editing projDiv
+
+        projDiv.childNodes.forEach(child => {           // hide all elements in current projDiv
             child.classList.add('hidden');
         })
-        unhideEditButtons(button);
+
+        unhideEditButtons(button);                      // unhide edit btns
+    })
+}
+
+// If any other proj div is in edit mode
+// returns it back to normal before making
+// currently selected proj div editable
+function toggleEditModes(ignoredNode) {
+    const projectFolder = document.getElementsByClassName('my-projects')[0];
+    projectFolder.childNodes.forEach(child => {
+        if (child.classList.contains('edit-mode') && child !== ignoredNode) {
+            child.classList.remove('edit-mode');
+            child.lastElementChild.click();
+        }
     })
 }
 
