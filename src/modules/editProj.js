@@ -60,14 +60,15 @@ function addProjectEditListeners(button, project) {
         } else if (button.id === 'edit-proj') {     // if edit btn pressed
             console.log(button);
         } else {                                    // if cancel btn pressed
-            cancelProjEdit();
+            cancelProjEdit(button);
         }
     })
 }
 
 // Cancels edit mode and re-renders the project section
-function cancelProjEdit() {
-    console.log('cancel');
+function cancelProjEdit(button) {
+    const projDiv = button.parentNode;
+    projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
 }
 
 // Delete button was pressed on projectDiv
