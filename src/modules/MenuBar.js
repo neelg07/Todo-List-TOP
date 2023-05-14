@@ -1,6 +1,6 @@
 import Project from "./projects";
 import RenderPage from "./render";
-import { addEditProjectEvent } from "./editProj";
+import { addEditProjectEvent, addEditProjBtns } from "./editProj";
 /**Menu Bar Module
  * contains everything that has to do with the side bar
  * adds event listeners for each menu item
@@ -57,13 +57,16 @@ function createProjectDiv(project) {
     buttonImg.setAttribute('id', 'project-settings');
     
     button.appendChild(buttonImg);
-    addEditProjectEvent(button, project);     // calls function to switch proj tab to edit mode
+    addEditProjectEvent(button);     // calls function to switch proj tab to edit mode
 
     projectNode.appendChild(projImg);
     projectNode.appendChild(h2);
     projectNode.appendChild(button);
 
-    addProjectListener(projectNode);
+    const editBtns = addEditProjBtns(project);                   // save array of button nodes returned from func
+    editBtns.forEach(node => projectNode.appendChild(node));     // Add three edit btns w/ hidden class already active
+
+    addProjectListener(projectNode);           // changes .selected class on each proj node click
     projectNode.click();
     return projectNode;
 }
