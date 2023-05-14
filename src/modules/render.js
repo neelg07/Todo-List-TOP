@@ -215,12 +215,15 @@ export default class RenderPage {
                     break;
                 default:                                    // add project-specific tasks to respective project page
                     if (MenuBar.projects.length >= 1) {     // if projects available
-                        const projectName = page.id;    
-                        for (let task of Task.taskList) {   
-                            if (task.project === projectName) { main.appendChild(createTaskNode(task)) }; 
+                        try {
+                            const projectName = page.id;    
+                            for (let task of Task.taskList) {   
+                                if (task.project === projectName) { main.appendChild(createTaskNode(task)) }; 
+                            }
                         }
-                    } else {
-                        for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };           // if no projects, render tasks using allTasks logic
+                        catch {
+                            for (let task of Task.taskList) { main.appendChild(createTaskNode(task)) };           // if no projects, render tasks using allTasks logic
+                        }
                     }
             }
         }, 1);
