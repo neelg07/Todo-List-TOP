@@ -86,6 +86,7 @@ function addProjectEditListeners(button, project) {
 function cancelProjEdit(button) {
     const projDiv = button.parentNode;
     projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
+    projDiv.classList.remove('edit-mode');
 }
 
 // Delete button was pressed on projectDiv
