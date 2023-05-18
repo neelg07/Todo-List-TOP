@@ -90,6 +90,7 @@ function cancelProjEdit(button) {
 
     if (deleteBtn.classList.contains('hidden')) deleteBtn.classList.remove('hidden');      // remove hidden from classlist if elements already have
     if (editBtn.classList.contains('hidden')) editBtn.classList.remove('hidden');         // such as when edit btn is clicked and cancel clicked next
+    deleteProjTitleInput();                                                               // delete the new proj title input and submit checkmark btn
 
     projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
     projDiv.classList.remove('edit-mode');
@@ -133,6 +134,15 @@ function submitNewProjTitleBtn() {
     submitBtn.append('✓');
     submitBtn.setAttribute('id', 'new-projTitle-submit');
     return submitBtn;
+}
+
+// deletes DOM loaded proj input and btn
+// once need for it is complete
+function deleteProjTitleInput() {
+    const input = document.getElementById('editProjTitle');
+    const submitBtn = document.getElementById('new-projTitle-submit');
+    input.remove();
+    submitBtn.remove();
 }
 
 // Renders a page after deleting a projDiv
