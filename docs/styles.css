@@ -473,3 +473,12 @@ textarea {
     right: 10px;
 }
 
+#editProjTitle {
+    width: 100px;
+    padding-right: 15px;
+}
+
+#new-projTitle-submit {
+    position: relative;
+    right: 30px;
+}

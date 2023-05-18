@@ -75,7 +75,7 @@ function addProjectEditListeners(button, project) {
         if (button.id === 'delete-proj') {         // if delete btn pressed
             deleteProj(project);
         } else if (button.id === 'edit-proj') {     // if edit btn pressed
-            console.log(button);
+            editProj(button, project);
         } else {                                    // if cancel btn pressed
             cancelProjEdit(button);
         }
@@ -95,6 +95,39 @@ function deleteProj(project) {                                                 /
     MenuBar.projects.splice(index, 1);                                         // splice project from array
     deleteProjectTasks(project);                                               // helper func to re-render proj section
     Promise.resolve(MenuBar.renderProjectSection()).then(renderPageAfterDelete());
+}
+
+// Edit button was pressed on projectDiv
+function editProj(button, project) {
+    const projDiv = button.parentNode;
+    projDiv.appendChild(addEditTitleInput(button, project));
+    projDiv.appendChild(submitNewProjTitle());
+    console.log(button);
+    console.log(project);
+}
+
+// removes edit and delete btns from edit menu
+// adds input element for proj title update
+// enter button submits the form to update
+// the proj being edited
+function addEditTitleInput(button, project) {
+    const deleteBtn = button.nextElementSibling;
+    button.classList.add('hidden');
+    deleteBtn.classList.add('hidden');
+
+    const titleInput = document.createElement('input');
+    titleInput.setAttribute('id', 'editProjTitle');
+    titleInput.setAttribute('value', project.title);
+    titleInput.setAttribute('name', 'project-title');
+    return titleInput;
+}
+
+// adds submit button for project title edit input
+function submitNewProjTitle() {
+    const submitBtn = document.createElement('button');
+    submitBtn.append('✓');
+    submitBtn.setAttribute('id', 'new-projTitle-submit');
+    return submitBtn;
 }
 
 // Renders a page after deleting a projDiv
