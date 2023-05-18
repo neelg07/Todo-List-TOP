@@ -85,6 +85,12 @@ function addProjectEditListeners(button, project) {
 // Cancels edit mode and re-renders the project section
 function cancelProjEdit(button) {
     const projDiv = button.parentNode;
+    const deleteBtn = button.previousElementSibling;
+    const editBtn = deleteBtn.previousElementSibling;
+
+    if (deleteBtn.classList.contains('hidden')) deleteBtn.classList.remove('hidden');      // remove hidden from classlist if elements already have
+    if (editBtn.classList.contains('hidden')) editBtn.classList.remove('hidden');         // such as when edit btn is clicked and cancel clicked next
+
     projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
     projDiv.classList.remove('edit-mode');
 }
@@ -101,9 +107,8 @@ function deleteProj(project) {                                                 /
 function editProj(button, project) {
     const projDiv = button.parentNode;
     projDiv.appendChild(addEditTitleInput(button, project));
-    projDiv.appendChild(submitNewProjTitle());
-    console.log(button);
-    console.log(project);
+    projDiv.appendChild(submitNewProjTitleBtn());
+    
 }
 
 // removes edit and delete btns from edit menu
@@ -123,7 +128,7 @@ function addEditTitleInput(button, project) {
 }
 
 // adds submit button for project title edit input
-function submitNewProjTitle() {
+function submitNewProjTitleBtn() {
     const submitBtn = document.createElement('button');
     submitBtn.append('✓');
     submitBtn.setAttribute('id', 'new-projTitle-submit');
