@@ -88,9 +88,11 @@ function cancelProjEdit(button) {
     const deleteBtn = button.previousElementSibling;
     const editBtn = deleteBtn.previousElementSibling;
 
-    if (deleteBtn.classList.contains('hidden')) deleteBtn.classList.remove('hidden');      // remove hidden from classlist if elements already have
-    if (editBtn.classList.contains('hidden')) editBtn.classList.remove('hidden');         // such as when edit btn is clicked and cancel clicked next
-    deleteProjTitleInput();                                                               // delete the new proj title input and submit checkmark btn
+    if (deleteBtn.classList.contains('hidden')) deleteBtn.classList.remove('hidden');      // remove hidden from classlist if edit/delete buttons already have
+    if (editBtn.classList.contains('hidden')) {                                            // such as when edit btn is clicked and cancel clicked next
+        editBtn.classList.remove('hidden');                                                 
+        deleteProjTitleInput();                                                            // delete the new proj title input and submit checkmark btn
+    }                                                                                     
 
     projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
     projDiv.classList.remove('edit-mode');
