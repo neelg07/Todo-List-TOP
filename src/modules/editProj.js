@@ -23,10 +23,22 @@ function toggleEditModes(ignoredNode) {
     const projectFolder = document.getElementsByClassName('my-projects')[0];
     projectFolder.childNodes.forEach(child => {
         if (child.classList.contains('edit-mode') && child !== ignoredNode) {
-            child.classList.remove('edit-mode');
+            child.classList.remove('edit-mode'); 
             child.lastElementChild.click();
+        } 
+        if (containsInput(child)) {                      // if after hitting edit btn already on a project
+            const childNodes = child.childNodes;        // get nodelist of all elements
+            childNodes[5].click();                      // index 5 is cancel button
         }
     })
+}
+
+// returns true if projectNode has an edit input
+// or false if not in that mode
+function containsInput(projectNode) {
+    const inputSubmitBtn = projectNode.lastElementChild;
+    const submitBtn = document.getElementById('new-projTitle-submit');
+    return inputSubmitBtn === submitBtn;
 }
 
 // Unhides edit buttons w/ respect to that projDiv
@@ -89,11 +101,9 @@ function cancelProjEdit(button) {
     const editBtn = deleteBtn.previousElementSibling;
 
     if (deleteBtn.classList.contains('hidden')) deleteBtn.classList.remove('hidden');      // remove hidden from classlist if edit/delete buttons already have
-    if (editBtn.classList.contains('hidden')) {                                            // such as when edit btn is clicked and cancel clicked next
-        editBtn.classList.remove('hidden');                                                 
-        deleteProjTitleInput();                                                            // delete the new proj title input and submit checkmark btn
-    }                                                                                     
-
+    if (editBtn.classList.contains('hidden')) editBtn.classList.remove('hidden');         // such as when edit btn is clicked and cancel clicked next                                                                                                                       
+    if (document.getElementById('editProjTitle')) deleteProjTitleInput();                 // delete the new proj title input and submit checkmark btn
+    
     projDiv.childNodes.forEach(child => child.classList.toggle('hidden'));
     projDiv.classList.remove('edit-mode');
 }
@@ -110,7 +120,7 @@ function deleteProj(project) {                                                 /
 function editProj(button, project) {
     const projDiv = button.parentNode;
     projDiv.appendChild(addEditTitleInput(button, project));
-    projDiv.appendChild(submitNewProjTitleBtn());
+    projDiv.appendChild(addSubmitNewProjBtn(project));
     
 }
 
@@ -131,10 +141,17 @@ function addEditTitleInput(button, project) {
 }
 
 // adds submit button for project title edit input
-function submitNewProjTitleBtn() {
+// event listener listens for click to update proj title
+function addSubmitNewProjBtn(project) {
     const submitBtn = document.createElement('button');
     submitBtn.append('✓');
     submitBtn.setAttribute('id', 'new-projTitle-submit');
+    
+    const projInput = document.getElementById('editProjTitle');
+
+    submitBtn.addEventListener('click', () => {
+        console.log(projInput.value);
+    })
     return submitBtn;
 }
 
