@@ -11,7 +11,6 @@ export function addEditProjectEvent(button) {
         projDiv.childNodes.forEach(child => {           // hide all elements in current projDiv
             child.classList.add('hidden');
         })
-
         unhideEditButtons(button);                      // unhide edit btns
     })
 }
