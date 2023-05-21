@@ -147,9 +147,11 @@ function addSubmitNewProjBtn(project) {
     submitBtn.setAttribute('id', 'new-projTitle-submit');
     
     const projInput = document.getElementById('editProjTitle');
-
-    submitBtn.addEventListener('click', () => {
-        console.log(projInput.value);
+    submitBtn.addEventListener('click', () => {                     // updates reference proj with new title value
+        updateProjectTasks(project, projInput.value);               // updates tasks associated w/ project to reference new title
+        project.title = projInput.value;                            // close edit mode and update projNodes section after
+        projInput.previousElementSibling.click();
+        MenuBar.renderProjectSection();                                       
     })
     return submitBtn;
 }
@@ -183,4 +185,14 @@ function deleteProjectTasks(project) {
         let index = Task.taskList.findIndex((task) => task === projTask);           // find index of any matching task in Task.taskList static arr
         if (index !== -1) {Task.taskList.splice(index, 1)}                      // if found in taskList arr, splice at index to remove that task
     }
+}
+
+// Updates all tasks associated w/ old project name
+// to associate w/ new project name after title edit
+function updateProjectTasks(project, newTitle) {
+    Task.taskList.forEach(task => {
+        if (task.project === project.title) {
+            task.project = newTitle;
+        }
+    })
 }
