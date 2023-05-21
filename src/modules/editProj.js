@@ -1,6 +1,8 @@
 import { MenuBar } from "./MenuBar";
 import { Task } from "./tasks";
 
+const allTasks = document.getElementsByClassName('all-tasks')[0];
+
 // Hides the children in the project div selected and calls helper function
 export function addEditProjectEvent(button) {
     button.addEventListener('click', () => {
