@@ -348,10 +348,22 @@ textarea {
 /** Task Section */
 #task-section {
     display: flex;
+    flex-direction: column;
     background-color: lightgray;
     border-radius: 5px;
-    width: 60%;
+    width: max(425px, 60%);
     height: 45px;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskDiv-main {
+    display: flex;
+    background-color: lightgray;
+    height: 45px;
+    width: 100%;
+    border-radius: 5px;
 
     justify-content: space-between;
     align-items: center;

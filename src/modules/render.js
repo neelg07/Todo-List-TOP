@@ -97,9 +97,13 @@ function addTaskOnClick(btn, page) {
 function createTaskNode(task_note) {
     const taskDiv = document.createElement('div');
     taskDiv.setAttribute('id', 'task-section');
+    const mainDiv = document.createElement('div');
+    mainDiv.classList.add('taskDiv-main'); 
 
-    taskDiv.appendChild(createLeftDiv(task_note));
-    taskDiv.appendChild(createRightDiv(task_note));
+    mainDiv.appendChild(createLeftDiv(task_note));
+    mainDiv.appendChild(createRightDiv(task_note));
+
+    taskDiv.appendChild(mainDiv);
     return taskDiv;
 }
 
