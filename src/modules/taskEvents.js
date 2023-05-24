@@ -4,7 +4,7 @@
 
 export function addRightDivListeners(task, starImg, expandImg) {
     addStarListener(task, starImg);
-    //addExpandListener(task, expandImg);
+    addExpandListener(task, expandImg);
 }
 
 // Important "star" checkbox event listener
@@ -26,8 +26,21 @@ function addStarListener(task, starImg) {
 function addExpandListener(task, expandImg) {
 
     expandImg.addEventListener('click', () => {
-        // expand to show details
+        const taskNode = expandImg.parentNode.parentNode.parentNode;
+        if (task.detail) taskNode.appendChild(addTaskDetail(task));
+        // addTaskProject(task);
+        // addDeleteTaskBtn(task);
     })
+}
+
+// Adds div containing description of task
+// if not empty string (no details inputted)
+function addTaskDetail(task) {
+    const detailDiv = document.createElement('div');
+    detailDiv.classList.add('task-detail');
+    detailDiv.append(task.detail);
+
+    return detailDiv;
 }
 
 export function addCheckEventListener(check, task_note) {
